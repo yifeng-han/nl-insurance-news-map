@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>荷兰保险业新闻地图（Demo）</title>
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <style>
+    body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, "PingFang SC", "Microsoft YaHei", sans-serif; }
+    header { padding: 12px 16px; border-bottom: 1px solid #eee; display:flex; gap:16px; align-items:center; flex-wrap:wrap;}
+    .badge { padding: 4px 10px; background:#f5f5f5; border-radius: 999px; font-size: 12px; }
+    .wrap { display: grid; grid-template-columns: 1.6fr 1fr; height: calc(100vh - 54px); }
+    #map { height: 100%; }
+    aside { border-left: 1px solid #eee; padding: 12px 12px; overflow:auto; }
+    h2 { margin: 0 0 8px 0; font-size: 16px; }
+    .item { padding: 10px; border: 1px solid #eee; border-radius: 12px; margin-bottom: 10px; }
+    .item a { text-decoration: none; }
+    .meta { color:#666; font-size: 12px; margin-top: 6px; display:flex; gap:8px; flex-wrap:wrap;}
+    .small { color:#666; font-size: 12px; }
+    .hint { color:#666; font-size: 12px; margin-top: 6px; }
+    @media (max-width: 900px) {
+      .wrap { grid-template-columns: 1fr; grid-template-rows: 60vh 40vh; }
+      aside { border-left: none; border-top: 1px solid #eee; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div><strong>荷兰保险业新闻地图（Demo）</strong></div>
+    <div class="badge" id="refreshBadge">Refresh date: --</div>
+    <div class="small">提示：hover 看摘要；点击标点跳转新闻。</div>
+  </header>
+
+  <div class="wrap">
+    <div id="map"></div>
+    <aside>
+      <h2>荷兰总体相关（National）</h2>
+      <div class="hint">这里展示不绑定具体城市/坐标的新闻。</div>
+      <div id="nationalList"></div>
+    </aside>
+  </div>
+
+  <script>
+    // 1) 初始化地图：视角框住荷兰
+    const map = L.map('map', { zoomControl: true });
+    const nlBounds = L.latLngBounds([50.75, 3.2], [53.7, 7.25]); // 荷兰大致范围
+    map.fitBounds(nlBounds);
+
+    // 2) 底图
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // 3) 读取假数据
+    fetch('./news.json', { cache: 'no-store' })
+      .then(r => r.json())
+      .then(data => {
+        // refresh date
+        document.getElementById('refreshBadge').textContent = `Refresh date: ${data.refresh_date || '--'}`;
+
+        // 地方新闻：打点
+        (data.local_news || []).forEach(n => {
+          const marker = L.marker([n.lat, n.lng]).addTo(map);
+
+          // hover：用 tooltip（小浮层）
+          marker.bindTooltip(
+            `<div style="max-width:260px">
+              <div style="font-weight:600;margin-bottom:6px">${escapeHtml(n.title)}</div>
+              <div style="font-size:12px;line-height:1.35;color:#444">${escapeHtml(n.summary)}</div>
+            </div>`,
+            { direction: 'top', sticky: true, opacity: 0.95 }
+          );
+
+          // click：新标签打开链接
+          marker.on('click', () => {
+            if (n.url) window.open(n.url, '_blank', 'noopener,noreferrer');
+          });
+        });
+
+        // 全国新闻：右侧列表
+        const box = document.getElementById('nationalList');
+        const items = data.national_news || [];
+        if (items.length === 0) {
+          box.innerHTML = `<div class="small">暂无 national 新闻</div>`;
+        } else {
+          box.innerHTML = items.map(n => `
+            <div class="item">
+              <div><a href="${n.url}" target="_blank" rel="noopener noreferrer"><strong>${escapeHtml(n.title)}</strong></a></div>
+              <div class="small" style="margin-top:6px;line-height:1.35">${escapeHtml(n.summary)}</div>
+              <div class="meta">
+                <span>${escapeHtml(n.published_at || '')}</span>
+                <span>${escapeHtml(n.source || '')}</span>
+              </div>
+            </div>
+          `).join('');
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        alert('读取 news.json 失败：请确认文件在仓库根目录，且 JSON 格式正确。');
+      });
+
+    // 简单防 XSS：转义
+    function escapeHtml(str) {
+      return String(str ?? '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
+  </script>
+</body>
+</html>
