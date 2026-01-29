@@ -1,0 +1,73 @@
+{
+  "refresh_date": "2026-01-29",
+  "local_news": [
+    {
+      "id": "n1",
+      "title": "Amsterdam：某保险公司推出新型电动车险",
+      "summary": "面向城市通勤电动车用户，强调盗抢与电池保障。",
+      "url": "https://example.com/news/amsterdam-ev-insurance",
+      "published_at": "2026-01-28",
+      "source": "Demo Source",
+      "lat": 52.3676,
+      "lng": 4.9041
+    },
+    {
+      "id": "n2",
+      "title": "Rotterdam：港口物流险费率调整讨论升温",
+      "summary": "多家机构关注海运风险与供应链中断条款变化。",
+      "url": "https://example.com/news/rotterdam-port-insurance",
+      "published_at": "2026-01-27",
+      "source": "Demo Source",
+      "lat": 51.9244,
+      "lng": 4.4777
+    },
+    {
+      "id": "n3",
+      "title": "Utrecht：健康险理赔数字化试点扩围",
+      "summary": "试点将覆盖更多诊所，目标缩短理赔周期。",
+      "url": "https://example.com/news/utrecht-health-claims",
+      "published_at": "2026-01-26",
+      "source": "Demo Source",
+      "lat": 52.0907,
+      "lng": 5.1214
+    },
+    {
+      "id": "n4",
+      "title": "Eindhoven：网络安全险对中小企业需求上升",
+      "summary": "制造业中小企业对停工损失与数据泄露条款更敏感。",
+      "url": "https://example.com/news/eindhoven-cyber",
+      "published_at": "2026-01-25",
+      "source": "Demo Source",
+      "lat": 51.4416,
+      "lng": 5.4697
+    },
+    {
+      "id": "n5",
+      "title": "Groningen：房屋地震风险相关保险信息更新",
+      "summary": "地方机构更新理赔说明，强调评估与材料准备。",
+      "url": "https://example.com/news/groningen-earthquake",
+      "published_at": "2026-01-24",
+      "source": "Demo Source",
+      "lat": 53.2194,
+      "lng": 6.5665
+    }
+  ],
+  "national_news": [
+    {
+      "id": "nn1",
+      "title": "荷兰：保险业监管季度要点发布",
+      "summary": "围绕消费者保护、透明度与风险管理提出新关注点。",
+      "url": "https://example.com/news/nl-regulatory-update",
+      "published_at": "2026-01-28",
+      "source": "Demo Source"
+    },
+    {
+      "id": "nn2",
+      "title": "荷兰：气候相关风险披露实践讨论",
+      "summary": "行业讨论如何在承保与投资侧反映气候风险。",
+      "url": "https://example.com/news/nl-climate-risk",
+      "published_at": "2026-01-27",
+      "source": "Demo Source"
+    }
+  ]
+}
