@@ -3,128 +3,113 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Netherlands Insurance Intelligence Map</title>
+  <title>Netherlands Insurance News Map</title>
 
   <!-- Leaflet -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-  <!-- MarkerCluster -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css"/>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css"/>
-  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
-
   <style>
     :root{
-      --bg0:#070a14;
-      --bg1:#0b1020;
-      --panel: rgba(255,255,255,0.075);
-      --panel2: rgba(255,255,255,0.055);
+      --bg: #0b1020;
+      --panel: rgba(255,255,255,0.08);
+      --panel2: rgba(255,255,255,0.06);
       --border: rgba(255,255,255,0.12);
-      --border2: rgba(255,255,255,0.10);
       --text: rgba(255,255,255,0.92);
       --muted: rgba(255,255,255,0.70);
       --subtle: rgba(255,255,255,0.55);
-
-      --accent:#7dd3fc;   /* sky */
-      --accent2:#a78bfa;  /* violet */
-      --good:#34d399;     /* emerald */
-      --warn:#fbbf24;     /* amber */
-
-      --shadow: 0 18px 60px rgba(0,0,0,0.60);
-      --shadow2: 0 12px 36px rgba(0,0,0,0.48);
-
-      --r18:18px;
-      --r14:14px;
-      --r12:12px;
-
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      --accent: #7dd3fc;     /* sky */
+      --accent2: #a78bfa;    /* violet */
+      --good: #34d399;       /* emerald */
+      --warn: #fbbf24;       /* amber */
+      --shadow: 0 16px 50px rgba(0,0,0,0.55);
+      --radius: 18px;
+      --radius2: 14px;
     }
 
-    *{ box-sizing:border-box; }
-    html, body{ height:100%; }
-    body{
-      margin:0;
-      font-family: var(--sans);
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: radial-gradient(1200px 600px at 20% -10%, rgba(125,211,252,0.18), transparent 55%),
+                  radial-gradient(900px 500px at 90% 0%, rgba(167,139,250,0.18), transparent 50%),
+                  radial-gradient(900px 700px at 40% 110%, rgba(52,211,153,0.12), transparent 55%),
+                  var(--bg);
       color: var(--text);
-      background:
-        radial-gradient(1200px 700px at 18% -8%, rgba(125,211,252,0.20), transparent 55%),
-        radial-gradient(900px 520px at 92% 0%, rgba(167,139,250,0.18), transparent 52%),
-        radial-gradient(900px 740px at 40% 110%, rgba(52,211,153,0.12), transparent 55%),
-        linear-gradient(180deg, var(--bg0), var(--bg1));
-      overflow:hidden;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      overflow: hidden;
     }
 
-    a{ color: inherit; }
-    .app{
-      height:100vh;
-      display:grid;
+    a { color: inherit; }
+    .app {
+      height: 100vh;
+      display: grid;
       grid-template-rows: auto 1fr;
     }
 
-    /* Top bar */
-    header{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 14px;
-      padding: 14px 16px;
+    header {
+      padding: 16px 18px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
       border-bottom: 1px solid rgba(255,255,255,0.10);
       background: linear-gradient(to bottom, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
-      backdrop-filter: blur(16px);
+      backdrop-filter: blur(14px);
     }
 
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
       min-width: 0;
     }
-    .logo{
-      width:36px; height:36px;
-      border-radius: 14px;
+
+    .logo {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
       background: radial-gradient(circle at 30% 30%, rgba(125,211,252,0.95), rgba(167,139,250,0.95));
       box-shadow: 0 14px 30px rgba(0,0,0,0.35);
-      position:relative; overflow:hidden;
+      position: relative;
+      overflow: hidden;
     }
     .logo:after{
       content:"";
-      position:absolute; inset:-60%;
+      position:absolute;
+      inset:-40%;
       background: linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent);
-      transform: rotate(25deg) translateX(-50%);
-      animation: shine 6s linear infinite;
-      opacity: 0.55;
+      transform: rotate(25deg);
+      animation: shine 5.5s linear infinite;
     }
     @keyframes shine{
-      0%{ transform: rotate(25deg) translateX(-60%); opacity: 0; }
-      15%{ opacity: 0.65; }
-      30%{ opacity: 0; }
-      100%{ transform: rotate(25deg) translateX(60%); opacity: 0; }
+      0%{ transform: translateX(-60%) rotate(25deg); opacity: 0;}
+      18%{opacity: 0.8;}
+      40%{opacity: 0.0;}
+      100%{ transform: translateX(60%) rotate(25deg); opacity: 0;}
     }
 
-    .titleWrap{ min-width:0; }
-    .title{
-      font-size: 15px;
-      font-weight: 750;
+    .titleWrap { min-width: 0; }
+    .title {
+      font-size: 16px;
+      font-weight: 650;
       letter-spacing: 0.2px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
-    .subtitle{
-      margin-top:2px;
+    .subtitle {
+      margin-top: 2px;
       font-size: 12px;
       color: var(--muted);
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    .topRight{
+    .metaBar{
       display:flex;
-      gap:10px;
       align-items:center;
+      gap:10px;
       flex-wrap:wrap;
       justify-content:flex-end;
     }
@@ -137,151 +122,83 @@
       border: 1px solid var(--border);
       border-radius: 999px;
       background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(14px);
       color: var(--muted);
       font-size: 12px;
-      backdrop-filter: blur(14px);
     }
-    .pill strong{ color: var(--text); font-weight: 750; }
 
-    .btnSmall{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding: 8px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.14);
-      background: linear-gradient(to bottom right, rgba(125,211,252,0.14), rgba(167,139,250,0.10));
+    .pill strong{
       color: var(--text);
-      text-decoration:none;
-      font-weight: 750;
-      font-size: 12px;
-      cursor:pointer;
-      user-select:none;
-      transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
-    }
-    .btnSmall:hover{
-      transform: translateY(-1px);
-      border-color: rgba(125,211,252,0.55);
-      background: linear-gradient(to bottom right, rgba(125,211,252,0.18), rgba(167,139,250,0.14));
+      font-weight: 650;
     }
 
-    /* Main layout */
-    .layout{
-      display:grid;
-      grid-template-columns: 1.6fr 1fr;
-      height:100%;
-      min-height:0;
+    .layout {
+      display: grid;
+      grid-template-columns: 1.55fr 1fr;
+      height: 100%;
+      min-height: 0;
     }
 
-    #map{
-      height:100%;
-      width:100%;
-      position:relative;
+    #map {
+      height: 100%;
+      width: 100%;
+      position: relative;
     }
 
-    /* Map vignette + top gradient */
-    .mapVignette{
-      pointer-events:none;
-      position:absolute;
-      inset:0;
-      background:
-        radial-gradient(closest-side at 50% 50%, transparent 60%, rgba(0,0,0,0.35) 100%),
-        linear-gradient(to bottom, rgba(11,16,32,0.45), transparent 25%);
-      z-index: 500; /* above tiles, below controls */
-      mix-blend-mode: normal;
-    }
-
-    /* Right panel */
-    .side{
+    .side {
       border-left: 1px solid rgba(255,255,255,0.10);
       background: linear-gradient(to bottom, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
       backdrop-filter: blur(16px);
       padding: 14px;
-      overflow:auto;
+      overflow: auto;
     }
 
-    .panel{
+    .panel {
       background: var(--panel);
       border: 1px solid var(--border);
-      border-radius: var(--r18);
+      border-radius: var(--radius);
       box-shadow: var(--shadow);
       padding: 12px;
     }
+
     .panel + .panel{ margin-top: 12px; }
 
     .sectionTitle{
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:10px;
+      gap: 10px;
       margin: 2px 2px 10px 2px;
     }
+
     .sectionTitle h2{
-      margin:0;
       font-size: 13px;
-      font-weight: 850;
       letter-spacing: 0.35px;
       text-transform: uppercase;
       color: var(--muted);
+      margin: 0;
+      font-weight: 700;
     }
+
     .hint{
-      margin: 0 2px 10px 2px;
       color: var(--subtle);
       font-size: 12px;
       line-height: 1.45;
-    }
-
-    .kpis{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-    .kpi{
-      border-radius: var(--r14);
-      border: 1px solid rgba(255,255,255,0.12);
-      background: linear-gradient(to bottom right, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
-      padding: 10px;
-      box-shadow: var(--shadow2);
-    }
-    .kpi .label{
-      font-size: 11px;
-      color: var(--subtle);
-      letter-spacing: 0.35px;
-      text-transform: uppercase;
-      font-weight: 800;
-    }
-    .kpi .value{
-      margin-top: 6px;
-      font-size: 18px;
-      font-weight: 900;
-      letter-spacing: 0.2px;
-    }
-    .kpi .sub{
-      margin-top: 4px;
-      font-size: 12px;
-      color: var(--muted);
-      font-family: var(--mono);
-      opacity: 0.95;
-    }
-
-    /* Controls */
-    .controls{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
+      margin: 0 2px 10px 2px;
     }
 
     .row{
       display:flex;
       gap:10px;
-      align-items:center;
       flex-wrap:wrap;
+      align-items:center;
     }
 
     .input{
-      flex:1 1 240px;
-      position:relative;
+      flex: 1 1 240px;
+      position: relative;
     }
+
     .input input{
       width:100%;
       padding: 10px 12px 10px 36px;
@@ -289,7 +206,7 @@
       border: 1px solid rgba(255,255,255,0.12);
       border-radius: 14px;
       color: var(--text);
-      outline:none;
+      outline: none;
     }
     .input input::placeholder{ color: rgba(255,255,255,0.45); }
     .input .icon{
@@ -297,180 +214,61 @@
       left:12px;
       top:50%;
       transform: translateY(-50%);
-      opacity: 0.75;
+      opacity: 0.70;
       pointer-events:none;
     }
 
-    .seg{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-    }
-    .chip{
-      cursor:pointer;
-      user-select:none;
-      padding: 7px 10px;
+    .badge{
+      font-size: 12px;
+      padding: 6px 10px;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.12);
       background: rgba(255,255,255,0.05);
       color: var(--muted);
-      font-size: 12px;
-      font-weight: 750;
-      transition: transform 150ms ease, border-color 150ms ease, background 150ms ease;
-    }
-    .chip:hover{ transform: translateY(-1px); border-color: rgba(125,211,252,0.45); }
-    .chip.active{
-      color: var(--text);
-      border-color: rgba(125,211,252,0.60);
-      background: linear-gradient(to bottom right, rgba(125,211,252,0.16), rgba(167,139,250,0.12));
-      box-shadow: 0 10px 26px rgba(0,0,0,0.35);
+      white-space: nowrap;
     }
 
-    .dropdown{
-      flex: 1 1 240px;
-      position:relative;
-    }
-    .dropdown button{
-      width:100%;
-      text-align:left;
-      padding: 10px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.06);
-      color: var(--text);
-      cursor:pointer;
-      font-weight: 750;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-    }
-    .menu{
-      position:absolute;
-      z-index: 50;
-      left:0; right:0;
-      margin-top: 8px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,0.14);
-      background: rgba(10,14,28,0.92);
-      backdrop-filter: blur(14px);
-      box-shadow: 0 22px 55px rgba(0,0,0,0.60);
-      padding: 10px;
-      display:none;
-      max-height: 320px;
-      overflow:auto;
-    }
-    .menu.open{ display:block; }
-    .menu .menuRow{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      padding: 8px 8px;
-      border-radius: 12px;
-      color: var(--muted);
-      border: 1px solid transparent;
-    }
-    .menu .menuRow:hover{
-      background: rgba(255,255,255,0.06);
-      border-color: rgba(255,255,255,0.10);
-      color: var(--text);
-    }
-    .menu .menuRow label{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      cursor:pointer;
-      width:100%;
-    }
-    .menu input[type="checkbox"]{
-      width: 16px;
-      height: 16px;
-      accent-color: #7dd3fc;
-    }
-    .menu .menuActions{
-      display:flex;
-      gap:8px;
-      padding: 6px 8px 10px 8px;
-      position:sticky;
-      top:0;
-      background: rgba(10,14,28,0.92);
-      backdrop-filter: blur(14px);
-      z-index: 2;
-    }
-    .miniLink{
-      font-size: 12px;
-      color: rgba(125,211,252,0.9);
-      cursor:pointer;
-      user-select:none;
-      font-weight: 800;
-    }
-    .miniLink:hover{ text-decoration: underline; }
-
-    /* Feed cards */
-    .feed{
+    .cards{
       display:flex;
       flex-direction:column;
       gap:10px;
     }
+
     .card{
-      border-radius: var(--r14);
+      border-radius: var(--radius2);
       border: 1px solid rgba(255,255,255,0.12);
       background: linear-gradient(to bottom right, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
       padding: 12px;
-      box-shadow: var(--shadow2);
-      transition: transform 170ms ease, border-color 170ms ease, background 170ms ease;
-      cursor:pointer;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
     }
     .card:hover{
       transform: translateY(-2px);
       border-color: rgba(125,211,252,0.55);
       background: linear-gradient(to bottom right, rgba(125,211,252,0.12), rgba(167,139,250,0.08));
     }
-    .card.selected{
-      border-color: rgba(52,211,153,0.65);
-      background: linear-gradient(to bottom right, rgba(52,211,153,0.12), rgba(125,211,252,0.08));
-    }
-    .cardTop{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:10px;
-    }
+
     .cardTitle{
-      margin:0;
-      font-weight: 900;
+      font-weight: 700;
       font-size: 14px;
       line-height: 1.25;
-      letter-spacing: 0.1px;
+      margin: 0;
     }
-    .tag{
-      display:inline-flex;
-      align-items:center;
-      gap:7px;
-      white-space:nowrap;
-      font-size: 11px;
-      font-weight: 900;
-      letter-spacing: 0.25px;
-      padding: 6px 9px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.14);
-      background: rgba(255,255,255,0.05);
-      color: var(--muted);
+
+    .cardTitle a{
+      text-decoration: none;
     }
-    .tag.local{ border-color: rgba(125,211,252,0.45); color: rgba(255,255,255,0.86); }
-    .tag.national{ border-color: rgba(167,139,250,0.45); color: rgba(255,255,255,0.86); }
 
     .cardSummary{
-      margin-top: 7px;
+      margin-top: 6px;
       color: var(--muted);
       font-size: 12.5px;
       line-height: 1.45;
-      display:-webkit-box;
+      display: -webkit-box;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
-      overflow:hidden;
+      overflow: hidden;
     }
+
     .cardMeta{
       margin-top: 10px;
       display:flex;
@@ -478,25 +276,17 @@
       flex-wrap:wrap;
       color: var(--subtle);
       font-size: 12px;
-      font-family: var(--mono);
     }
+
     .dot{
-      width:6px; height:6px; border-radius:999px;
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
       display:inline-block;
       background: var(--accent);
       box-shadow: 0 0 0 6px rgba(125,211,252,0.12);
       margin-right: 6px;
       vertical-align: middle;
-    }
-    .dot.violet{
-      background: var(--accent2);
-      box-shadow: 0 0 0 6px rgba(167,139,250,0.12);
-    }
-
-    .empty{
-      padding: 10px 2px 2px 2px;
-      color: var(--muted);
-      font-size: 12px;
     }
 
     /* Leaflet polish */
@@ -508,17 +298,31 @@
       border-radius: 12px !important;
       box-shadow: 0 10px 24px rgba(0,0,0,0.35);
     }
-    .leaflet-bar{ border:none !important; box-shadow:none !important; }
-    .leaflet-control-zoom{ margin: 14px !important; }
+    .leaflet-bar{
+      border: none !important;
+      box-shadow: none !important;
+    }
+    .leaflet-control-zoom{
+      margin: 14px !important;
+    }
 
     .leaflet-tooltip{
       background: rgba(10,14,28,0.88);
       border: 1px solid rgba(255,255,255,0.12);
       color: var(--text);
       border-radius: 14px;
-      padding: 10px;
+      padding: 10px 10px;
       box-shadow: 0 18px 40px rgba(0,0,0,0.55);
       backdrop-filter: blur(12px);
+    }
+    .leaflet-tooltip-top:before,
+    .leaflet-tooltip-bottom:before,
+    .leaflet-tooltip-left:before,
+    .leaflet-tooltip-right:before{
+      border-top-color: rgba(255,255,255,0.12) !important;
+      border-bottom-color: rgba(255,255,255,0.12) !important;
+      border-left-color: rgba(255,255,255,0.12) !important;
+      border-right-color: rgba(255,255,255,0.12) !important;
     }
 
     .leaflet-popup-content-wrapper{
@@ -533,9 +337,12 @@
       background: rgba(10,14,28,0.92);
       border: 1px solid rgba(255,255,255,0.14);
     }
+    .leaflet-container a.leaflet-popup-close-button{
+      color: rgba(255,255,255,0.85);
+    }
 
     .popupTitle{
-      font-weight: 950;
+      font-weight: 800;
       font-size: 14px;
       margin: 0 0 6px 0;
       letter-spacing: 0.1px;
@@ -552,7 +359,6 @@
       flex-wrap:wrap;
       color: var(--subtle);
       font-size: 12px;
-      font-family: var(--mono);
       margin-bottom: 10px;
     }
     .btn{
@@ -566,114 +372,17 @@
       background: linear-gradient(to bottom right, rgba(125,211,252,0.18), rgba(167,139,250,0.18));
       color: var(--text);
       text-decoration:none;
-      font-weight: 900;
+      font-weight: 700;
       font-size: 12px;
     }
-    .btn:hover{ border-color: rgba(125,211,252,0.6); }
-
-    /* Custom signal marker (divIcon) */
-    .signal{
-      width: 14px; height: 14px;
-      border-radius: 999px;
-      background: rgba(125,211,252,0.95);
-      box-shadow:
-        0 0 0 5px rgba(125,211,252,0.14),
-        0 10px 24px rgba(0,0,0,0.45);
-      border: 1px solid rgba(255,255,255,0.75);
-      transform: translateZ(0);
-      transition: transform 140ms ease, box-shadow 140ms ease;
-    }
-    .signal.hot{
-      transform: scale(1.12);
-      box-shadow:
-        0 0 0 7px rgba(52,211,153,0.16),
-        0 14px 30px rgba(0,0,0,0.55);
-      background: rgba(52,211,153,0.95);
+    .btn:hover{
+      border-color: rgba(125,211,252,0.6);
     }
 
-    /* Cluster icon */
-    .cluster{
-      width: 38px; height: 38px;
-      border-radius: 999px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight: 950;
-      color: rgba(255,255,255,0.92);
-      background: radial-gradient(circle at 30% 30%, rgba(125,211,252,0.92), rgba(167,139,250,0.88));
-      border: 1px solid rgba(255,255,255,0.70);
-      box-shadow:
-        0 0 0 8px rgba(125,211,252,0.10),
-        0 18px 40px rgba(0,0,0,0.55);
-      font-family: var(--mono);
-      letter-spacing: 0.2px;
-    }
-
-    /* Modal */
-    .modalMask{
-      position:fixed;
-      inset:0;
-      background: rgba(0,0,0,0.55);
-      display:none;
-      z-index: 9999;
-      align-items:center;
-      justify-content:center;
-      padding: 18px;
-    }
-    .modalMask.open{ display:flex; }
-    .modal{
-      width: min(760px, 100%);
-      border-radius: 20px;
-      border: 1px solid rgba(255,255,255,0.14);
-      background: rgba(10,14,28,0.92);
-      backdrop-filter: blur(16px);
-      box-shadow: 0 30px 80px rgba(0,0,0,0.70);
-      padding: 14px;
-    }
-    .modalHeader{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap: 12px;
-      padding: 4px 6px 10px 6px;
-      border-bottom: 1px solid rgba(255,255,255,0.10);
-    }
-    .modalHeader h3{
-      margin:0;
-      font-size: 16px;
-      font-weight: 950;
-      letter-spacing: 0.15px;
-      line-height:1.25;
-    }
-    .closeX{
-      cursor:pointer;
-      user-select:none;
-      font-weight: 950;
-      padding: 6px 10px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.06);
-      color: var(--text);
-    }
-    .closeX:hover{ border-color: rgba(125,211,252,0.55); }
-
-    .modalBody{
-      padding: 12px 6px 6px 6px;
-    }
-    .modalBody p{
-      margin: 0 0 12px 0;
+    .loading{
       color: var(--muted);
-      line-height: 1.55;
-      font-size: 13px;
-    }
-    .modalMeta{
-      display:flex;
-      gap: 10px;
-      flex-wrap:wrap;
-      color: var(--subtle);
       font-size: 12px;
-      font-family: var(--mono);
-      margin-bottom: 12px;
+      padding: 8px 2px 2px 2px;
     }
 
     /* Responsive */
@@ -697,236 +406,238 @@
       <div class="brand">
         <div class="logo" aria-hidden="true"></div>
         <div class="titleWrap">
-          <div class="title">Netherlands Insurance Intelligence Map</div>
-          <div class="subtitle">Local signals on the map · National updates in the feed · Consultant-grade triage</div>
+          <div class="title">Netherlands Insurance News Map</div>
+          <div class="subtitle">Local signals on the map · National updates on the right</div>
         </div>
       </div>
 
-      <div class="topRight">
-        <div class="pill">
+      <div class="metaBar">
+        <div class="pill" id="refreshPill">
           <span style="opacity:.75">Last updated</span>
           <strong id="refreshDate">--</strong>
         </div>
         <div class="pill">
-          <span style="opacity:.75">Tips</span>
-          <strong>Hover</strong><span style="opacity:.65">preview</span> · <strong>Click</strong><span style="opacity:.65">focus</span>
+          <span style="opacity:.75">Interaction</span>
+          <strong>Hover</strong><span style="opacity:.65">preview</span> · <strong>Click</strong><span style="opacity:.65">open</span>
         </div>
-        <button class="btnSmall" id="resetViewBtn" type="button">Reset view</button>
       </div>
     </header>
 
     <div class="layout">
-      <div id="map">
-        <div class="mapVignette"></div>
-      </div>
+      <div id="map"></div>
 
       <div class="side">
         <div class="panel">
           <div class="sectionTitle">
-            <h2>Executive snapshot</h2>
-          </div>
-          <div class="kpis">
-            <div class="kpi">
-              <div class="label">Local points</div>
-              <div class="value" id="kpiLocal">--</div>
-              <div class="sub">Mapped signals</div>
-            </div>
-            <div class="kpi">
-              <div class="label">National items</div>
-              <div class="value" id="kpiNational">--</div>
-              <div class="sub">Non-location updates</div>
-            </div>
-            <div class="kpi">
-              <div class="label">Sources</div>
-              <div class="value" id="kpiSources">--</div>
-              <div class="sub">Distinct publishers</div>
-            </div>
-            <div class="kpi">
-              <div class="label">Latest date</div>
-              <div class="value" id="kpiLatest">--</div>
-              <div class="sub">Most recent publish</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="panel">
-          <div class="sectionTitle">
-            <h2>Filters</h2>
-            <div class="pill" style="padding:6px 10px;">
-              <span style="opacity:.75">Showing</span>
-              <strong id="showCount">--</strong>
-            </div>
-          </div>
-
-          <div class="controls">
-            <div class="row">
-              <div class="input">
-                <span class="icon" aria-hidden="true">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                    <path d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="rgba(255,255,255,.75)" stroke-width="2"/>
-                    <path d="M16.5 16.5 21 21" stroke="rgba(255,255,255,.75)" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                </span>
-                <input id="searchBox" type="text" placeholder="Search titles, summaries, sources…" />
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="seg" aria-label="date range">
-                <div class="chip active" data-range="all">All time</div>
-                <div class="chip" data-range="7">Last 7 days</div>
-                <div class="chip" data-range="30">Last 30 days</div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="dropdown" id="sourceDropdown">
-                <button type="button" id="sourceBtn">
-                  <span>Sources</span>
-                  <span style="opacity:.75" id="sourceBtnMeta">All</span>
-                </button>
-                <div class="menu" id="sourceMenu">
-                  <div class="menuActions">
-                    <span class="miniLink" id="selectAllSources">Select all</span>
-                    <span class="miniLink" id="selectNoneSources">Select none</span>
-                  </div>
-                  <div id="sourceOptions"></div>
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="seg" aria-label="type toggle">
-                <div class="chip active" data-kind="all">All</div>
-                <div class="chip" data-kind="local">Local</div>
-                <div class="chip" data-kind="national">National</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="panel">
-          <div class="sectionTitle">
-            <h2>Feed</h2>
+            <h2>National</h2>
+            <div class="badge" id="nationalCount">0 items</div>
           </div>
           <p class="hint">
-            Click a card to focus. Local items will fly to the point on the map; national items open a preview.
+            Items without a specific city/coordinate. Use search to quickly scan themes and regulations.
           </p>
-          <div id="feed" class="feed">
-            <div class="empty">Loading…</div>
+
+          <div class="row" style="margin: 0 0 10px 0;">
+            <div class="input">
+              <span class="icon" aria-hidden="true">
+                <!-- search icon -->
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="rgba(255,255,255,.75)" stroke-width="2"/>
+                  <path d="M16.5 16.5 21 21" stroke="rgba(255,255,255,.75)" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </span>
+              <input id="searchBox" type="text" placeholder="Search titles, summaries, sources…" />
+            </div>
+          </div>
+
+          <div id="nationalList" class="cards">
+            <div class="loading">Loading…</div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- Modal -->
-  <div class="modalMask" id="modalMask" role="dialog" aria-modal="true" aria-label="Preview">
-    <div class="modal">
-      <div class="modalHeader">
-        <h3 id="modalTitle">Preview</h3>
-        <div class="closeX" id="modalClose">Close</div>
-      </div>
-      <div class="modalBody">
-        <div class="modalMeta" id="modalMeta"></div>
-        <p id="modalSummary"></p>
-        <a class="btn" id="modalLink" href="#" target="_blank" rel="noopener noreferrer">Open article ↗</a>
+        <div class="panel">
+          <div class="sectionTitle">
+            <h2>Local</h2>
+            <div class="badge" id="localCount">0 points</div>
+          </div>
+          <p class="hint" style="margin-bottom:0">
+            City-linked items appear as elegant signal dots. Hover to preview; click to open the article.
+          </p>
+        </div>
       </div>
     </div>
   </div>
 
   <script>
-    // ---------------------------
-    // Map setup
-    // ---------------------------
-    const map = L.map('map', { zoomControl: true, preferCanvas: true });
+    // --- Map setup (Netherlands focus) ---
+    const map = L.map('map', {
+      zoomControl: true,
+      preferCanvas: true
+    });
 
+    // Netherlands-ish bounds
     const nlBounds = L.latLngBounds([50.75, 3.2], [53.7, 7.25]);
-    map.fitBounds(nlBounds, { padding: [24, 24] });
+    map.fitBounds(nlBounds, { padding: [20, 20] });
 
-    // Premium dark basemap (no key required)
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    // A more aesthetic basemap (Carto light). No API key needed.
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
       maxZoom: 19,
       attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
     }).addTo(map);
 
-    // Cluster layer with custom cluster icon
-    const cluster = L.markerClusterGroup({
-      showCoverageOnHover: false,
-      spiderfyDistanceMultiplier: 1.3,
-      maxClusterRadius: 46,
-      iconCreateFunction: function (c) {
-        const n = c.getChildCount();
-        return L.divIcon({
-          html: `<div class="cluster">${n}</div>`,
-          className: '',
-          iconSize: [38, 38]
+    // Subtle vignette overlay for premium look
+    const overlay = L.rectangle(nlBounds, {
+      stroke: false,
+      fill: true,
+      fillOpacity: 0.07,
+      fillColor: '#0b1020'
+    }).addTo(map);
+
+    // --- Data loading ---
+    let NATIONAL = [];
+    let LOCAL = [];
+
+    const elRefresh = document.getElementById('refreshDate');
+    const elNationalList = document.getElementById('nationalList');
+    const elNationalCount = document.getElementById('nationalCount');
+    const elLocalCount = document.getElementById('localCount');
+    const elSearch = document.getElementById('searchBox');
+
+    fetch('./news.json', { cache: 'no-store' })
+      .then(r => r.json())
+      .then(data => {
+        elRefresh.textContent = data.refresh_date || '--';
+
+        NATIONAL = Array.isArray(data.national_news) ? data.national_news.slice() : [];
+        LOCAL = Array.isArray(data.local_news) ? data.local_news.slice() : [];
+
+        // Sort national by published_at desc if present
+        NATIONAL.sort((a,b) => (b.published_at || '').localeCompare(a.published_at || ''));
+
+        elNationalCount.textContent = `${NATIONAL.length} items`;
+        elLocalCount.textContent = `${LOCAL.length} points`;
+
+        renderNational();
+        renderLocalPoints();
+      })
+      .catch(err => {
+        console.error(err);
+        elNationalList.innerHTML = `<div class="loading">Failed to load <strong>news.json</strong>. Please verify the file exists in the repo root and is valid JSON.</div>`;
+      });
+
+    // --- Local points (beautiful signal dots) ---
+    const localLayer = L.layerGroup().addTo(map);
+
+    function renderLocalPoints(){
+      localLayer.clearLayers();
+
+      LOCAL.forEach(n => {
+        const lat = Number(n.lat);
+        const lng = Number(n.lng);
+        if (!Number.isFinite(lat) || !Number.isFinite(lng)) return;
+
+        // Create a premium-looking "signal dot" via circleMarker
+        const marker = L.circleMarker([lat, lng], {
+          radius: 7,
+          color: 'rgba(255,255,255,0.75)',
+          weight: 1,
+          fillColor: '#7dd3fc',
+          fillOpacity: 0.85
+        }).addTo(localLayer);
+
+        // Halo ring (separate circle for glow)
+        const halo = L.circleMarker([lat, lng], {
+          radius: 16,
+          stroke: false,
+          fillColor: '#7dd3fc',
+          fillOpacity: 0.10
+        }).addTo(localLayer);
+
+        // Keep halo behind
+        halo.bringToBack();
+        marker.bringToFront();
+
+        // Hover tooltip preview
+        marker.bindTooltip(
+          `<div style="max-width:280px">
+            <div style="font-weight:800; margin-bottom:6px; letter-spacing:.1px">${escapeHtml(n.title)}</div>
+            <div style="font-size:12.5px; line-height:1.45; color:rgba(255,255,255,0.82)">${escapeHtml(n.summary || '')}</div>
+          </div>`,
+          { direction: 'top', sticky: true, opacity: 0.96 }
+        );
+
+        // Hover state polish
+        marker.on('mouseover', () => {
+          marker.setStyle({ radius: 9, weight: 1.5, fillOpacity: 0.95 });
+          halo.setStyle({ radius: 20, fillOpacity: 0.14 });
         });
-      }
-    });
+        marker.on('mouseout', () => {
+          marker.setStyle({ radius: 7, weight: 1, fillOpacity: 0.85 });
+          halo.setStyle({ radius: 16, fillOpacity: 0.10 });
+        });
 
-    map.addLayer(cluster);
-
-    // Marker store
-    const markerById = new Map();
-
-    function signalIcon() {
-      return L.divIcon({
-        className: '',
-        html: `<div class="signal" aria-hidden="true"></div>`,
-        iconSize: [14, 14],
-        iconAnchor: [7, 7]
+        // Click popup with CTA
+        marker.on('click', () => {
+          const url = n.url || '';
+          const html = `
+            <div>
+              <div class="popupTitle">${escapeHtml(n.title)}</div>
+              <div class="popupSummary">${escapeHtml(n.summary || '')}</div>
+              <div class="popupMeta">
+                <span><span class="dot"></span>${escapeHtml(n.source || 'Source')}</span>
+                ${n.published_at ? `<span>· ${escapeHtml(n.published_at)}</span>` : ''}
+              </div>
+              ${url ? `<a class="btn" href="${escapeAttr(url)}" target="_blank" rel="noopener noreferrer">
+                Open article
+                <span aria-hidden="true">↗</span>
+              </a>` : `<span style="color:rgba(255,255,255,0.6); font-size:12px">No URL available</span>`}
+            </div>
+          `;
+          marker.bindPopup(html, { closeButton: true, autoPanPadding: [18, 18] }).openPopup();
+        });
       });
     }
 
-    // ---------------------------
-    // UI elements
-    // ---------------------------
-    const elRefreshDate = document.getElementById('refreshDate');
-    const elFeed = document.getElementById('feed');
+    // --- National list (cards + search) ---
+    function renderNational(){
+      const q = (elSearch.value || '').trim().toLowerCase();
+      const filtered = q
+        ? NATIONAL.filter(n => {
+            const blob = `${n.title||''} ${n.summary||''} ${n.source||''}`.toLowerCase();
+            return blob.includes(q);
+          })
+        : NATIONAL;
 
-    const elKpiLocal = document.getElementById('kpiLocal');
-    const elKpiNational = document.getElementById('kpiNational');
-    const elKpiSources = document.getElementById('kpiSources');
-    const elKpiLatest = document.getElementById('kpiLatest');
-    const elShowCount = document.getElementById('showCount');
+      elNationalCount.textContent = `${filtered.length} items`;
 
-    const elSearch = document.getElementById('searchBox');
-    const elReset = document.getElementById('resetViewBtn');
+      if (filtered.length === 0){
+        elNationalList.innerHTML = `<div class="loading">No results.</div>`;
+        return;
+      }
 
-    const sourceDropdown = document.getElementById('sourceDropdown');
-    const sourceBtn = document.getElementById('sourceBtn');
-    const sourceBtnMeta = document.getElementById('sourceBtnMeta');
-    const sourceMenu = document.getElementById('sourceMenu');
-    const sourceOptions = document.getElementById('sourceOptions');
-    const selectAllSources = document.getElementById('selectAllSources');
-    const selectNoneSources = document.getElementById('selectNoneSources');
+      elNationalList.innerHTML = filtered.map(n => {
+        const url = n.url || '#';
+        const source = n.source || 'Source';
+        const date = n.published_at || '';
+        return `
+          <div class="card">
+            <p class="cardTitle">
+              <a href="${escapeAttr(url)}" target="_blank" rel="noopener noreferrer">
+                ${escapeHtml(n.title || 'Untitled')}
+              </a>
+            </p>
+            <div class="cardSummary">${escapeHtml(n.summary || '')}</div>
+            <div class="cardMeta">
+              <span><span class="dot"></span>${escapeHtml(source)}</span>
+              ${date ? `<span>· ${escapeHtml(date)}</span>` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
 
-    const modalMask = document.getElementById('modalMask');
-    const modalClose = document.getElementById('modalClose');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalMeta = document.getElementById('modalMeta');
-    const modalSummary = document.getElementById('modalSummary');
-    const modalLink = document.getElementById('modalLink');
+    elSearch.addEventListener('input', () => renderNational());
 
-    // ---------------------------
-    // Data model
-    // ---------------------------
-    let RAW_LOCAL = [];
-    let RAW_NATIONAL = [];
-    let ITEMS = []; // unified feed items
-
-    // Filters
-    let filterRangeDays = 'all'; // 'all' | '7' | '30'
-    let filterKind = 'all';      // 'all' | 'local' | 'national'
-    let filterQuery = '';
-    let filterSources = new Set(); // selected sources
-
-    let selectedId = null;
-
-    // ---------------------------
-    // Helpers
-    // ---------------------------
+    // --- Safety escaping helpers ---
     function escapeHtml(str){
       return String(str ?? '')
         .replaceAll('&', '&amp;')
@@ -936,6 +647,7 @@
         .replaceAll("'", '&#039;');
     }
     function escapeAttr(str){
+      // Keep it simple: escape quotes and angle brackets
       return String(str ?? '')
         .replaceAll('&', '&amp;')
         .replaceAll('"', '&quot;')
@@ -943,407 +655,6 @@
         .replaceAll('<', '&lt;')
         .replaceAll('>', '&gt;');
     }
-    function parseDate(d){
-      // expects YYYY-MM-DD; returns Date or null
-      if (!d || typeof d !== 'string') return null;
-      const m = d.match(/^(\d{4})-(\d{2})-(\d{2})$/);
-      if (!m) return null;
-      const dt = new Date(Date.UTC(+m[1], +m[2]-1, +m[3]));
-      return isNaN(dt.getTime()) ? null : dt;
-    }
-    function fmtDate(d){
-      return d || '--';
-    }
-    function uniq(arr){
-      return Array.from(new Set(arr));
-    }
-
-    function openModal(item){
-      modalTitle.textContent = item.title || 'Preview';
-      modalSummary.textContent = item.summary || '';
-      const parts = [];
-      if (item.source) parts.push(`Source: ${item.source}`);
-      if (item.published_at) parts.push(`Date: ${item.published_at}`);
-      parts.push(`Type: ${item.kind}`);
-      modalMeta.textContent = parts.join(' · ');
-      if (item.url) {
-        modalLink.href = item.url;
-        modalLink.style.display = 'inline-flex';
-      } else {
-        modalLink.style.display = 'none';
-      }
-      modalMask.classList.add('open');
-    }
-    function closeModal(){
-      modalMask.classList.remove('open');
-    }
-
-    // ---------------------------
-    // Build unified items
-    // ---------------------------
-    function buildItems(){
-      const local = (RAW_LOCAL || []).map(n => ({
-        id: n.id || `local_${Math.random().toString(16).slice(2)}`,
-        kind: 'local',
-        title: n.title || 'Untitled',
-        summary: n.summary || '',
-        url: n.url || '',
-        source: n.source || 'Source',
-        published_at: n.published_at || '',
-        dt: parseDate(n.published_at),
-        lat: Number(n.lat),
-        lng: Number(n.lng),
-        city: n.city || n.location || '' // optional future enhancement
-      }));
-
-      const national = (RAW_NATIONAL || []).map(n => ({
-        id: n.id || `national_${Math.random().toString(16).slice(2)}`,
-        kind: 'national',
-        title: n.title || 'Untitled',
-        summary: n.summary || '',
-        url: n.url || '',
-        source: n.source || 'Source',
-        published_at: n.published_at || '',
-        dt: parseDate(n.published_at),
-        lat: null,
-        lng: null
-      }));
-
-      const all = local.concat(national);
-
-      // sort by date desc (fallback stable)
-      all.sort((a,b) => {
-        const ta = a.dt ? a.dt.getTime() : -Infinity;
-        const tb = b.dt ? b.dt.getTime() : -Infinity;
-        if (tb !== ta) return tb - ta;
-        return (b.published_at || '').localeCompare(a.published_at || '');
-      });
-
-      ITEMS = all;
-
-      // KPIs
-      elKpiLocal.textContent = local.length.toString();
-      elKpiNational.textContent = national.length.toString();
-
-      const sources = uniq(all.map(x => x.source || 'Source'));
-      elKpiSources.textContent = sources.length.toString();
-
-      const latest = all.find(x => x.published_at)?.published_at || '--';
-      elKpiLatest.textContent = latest;
-
-      // Source filter defaults = all
-      filterSources = new Set(sources);
-      renderSourceOptions(sources);
-      updateSourceBtnMeta();
-    }
-
-    // ---------------------------
-    // Markers
-    // ---------------------------
-    function renderMarkers(filteredItems){
-      // Only local items become markers
-      cluster.clearLayers();
-      markerById.clear();
-
-      filteredItems.filter(x => x.kind === 'local' && Number.isFinite(x.lat) && Number.isFinite(x.lng))
-        .forEach(item => {
-          const marker = L.marker([item.lat, item.lng], { icon: signalIcon() });
-
-          marker.bindTooltip(
-            `<div style="max-width:280px">
-              <div style="font-weight:950; margin-bottom:6px; letter-spacing:.1px">${escapeHtml(item.title)}</div>
-              <div style="font-size:12.5px; line-height:1.45; color:rgba(255,255,255,0.82)">${escapeHtml(item.summary || '')}</div>
-            </div>`,
-            { direction: 'top', sticky: true, opacity: 0.96 }
-          );
-
-          marker.on('click', () => focusItem(item.id, { openPopup: true }));
-          markerById.set(item.id, marker);
-
-          cluster.addLayer(marker);
-        });
-    }
-
-    function setMarkerHot(id, on){
-      const m = markerById.get(id);
-      if (!m) return;
-      const el = m.getElement()?.querySelector('.signal');
-      if (!el) return;
-      if (on) el.classList.add('hot');
-      else el.classList.remove('hot');
-    }
-
-    // ---------------------------
-    // Filtering
-    // ---------------------------
-    function applyFilters(){
-      const q = (filterQuery || '').trim().toLowerCase();
-
-      const now = new Date();
-      const minTime = (filterRangeDays === 'all')
-        ? null
-        : now.getTime() - Number(filterRangeDays) * 24 * 60 * 60 * 1000;
-
-      const out = ITEMS.filter(item => {
-        // kind
-        if (filterKind !== 'all' && item.kind !== filterKind) return false;
-
-        // sources
-        if (item.source && !filterSources.has(item.source)) return false;
-
-        // date range
-        if (minTime !== null) {
-          const t = item.dt ? item.dt.getTime() : null;
-          if (t === null) return false;
-          if (t < minTime) return false;
-        }
-
-        // query
-        if (q) {
-          const blob = `${item.title||''} ${item.summary||''} ${item.source||''}`.toLowerCase();
-          if (!blob.includes(q)) return false;
-        }
-
-        return true;
-      });
-
-      elShowCount.textContent = `${out.length} items`;
-      return out;
-    }
-
-    // ---------------------------
-    // Feed rendering
-    // ---------------------------
-    function renderFeed(items){
-      if (!items.length){
-        elFeed.innerHTML = `<div class="empty">No results. Try adjusting filters.</div>`;
-        return;
-      }
-
-      elFeed.innerHTML = items.map(item => {
-        const isSelected = item.id === selectedId;
-        const typeTag = item.kind === 'local'
-          ? `<span class="tag local"><span class="dot"></span>LOCAL</span>`
-          : `<span class="tag national"><span class="dot violet"></span>NATIONAL</span>`;
-
-        const metaParts = [];
-        metaParts.push(`${item.source || 'Source'}`);
-        if (item.published_at) metaParts.push(item.published_at);
-        if (item.kind === 'local' && item.city) metaParts.push(item.city);
-
-        return `
-          <div class="card ${isSelected ? 'selected' : ''}" data-id="${escapeAttr(item.id)}">
-            <div class="cardTop">
-              <p class="cardTitle">${escapeHtml(item.title)}</p>
-              ${typeTag}
-            </div>
-            <div class="cardSummary">${escapeHtml(item.summary || '')}</div>
-            <div class="cardMeta">${escapeHtml(metaParts.join(' · '))}</div>
-          </div>
-        `;
-      }).join('');
-
-      // card click handlers
-      Array.from(elFeed.querySelectorAll('.card')).forEach(card => {
-        card.addEventListener('click', () => {
-          const id = card.getAttribute('data-id');
-          focusItem(id, { openPopup: false });
-        });
-        card.addEventListener('mouseenter', () => {
-          const id = card.getAttribute('data-id');
-          setMarkerHot(id, true);
-        });
-        card.addEventListener('mouseleave', () => {
-          const id = card.getAttribute('data-id');
-          if (id !== selectedId) setMarkerHot(id, false);
-        });
-      });
-    }
-
-    // ---------------------------
-    // Focus/selection behavior
-    // ---------------------------
-    function focusItem(id, opts){
-      const item = ITEMS.find(x => x.id === id);
-      if (!item) return;
-
-      // Clear previous selection
-      if (selectedId && selectedId !== id) setMarkerHot(selectedId, false);
-      selectedId = id;
-
-      // Rerender feed to show selected style
-      const filtered = applyFilters();
-      renderFeed(filtered);
-
-      if (item.kind === 'local' && Number.isFinite(item.lat) && Number.isFinite(item.lng)) {
-        const marker = markerById.get(id);
-
-        // fly to location
-        map.flyTo([item.lat, item.lng], Math.max(map.getZoom(), 10), { duration: 0.9 });
-
-        // highlight marker
-        setMarkerHot(id, true);
-
-        // open popup on demand
-        if (marker && opts?.openPopup) {
-          const url = item.url || '';
-          const html = `
-            <div>
-              <div class="popupTitle">${escapeHtml(item.title)}</div>
-              <div class="popupSummary">${escapeHtml(item.summary || '')}</div>
-              <div class="popupMeta">
-                <span>${escapeHtml(item.source || 'Source')}</span>
-                ${item.published_at ? `<span>· ${escapeHtml(item.published_at)}</span>` : ''}
-              </div>
-              ${url ? `<a class="btn" href="${escapeAttr(url)}" target="_blank" rel="noopener noreferrer">Open article ↗</a>` : ''}
-            </div>
-          `;
-          marker.bindPopup(html, { closeButton: true, autoPanPadding: [18, 18] }).openPopup();
-        }
-      } else {
-        // national: open modal preview
-        openModal(item);
-      }
-    }
-
-    // ---------------------------
-    // Source dropdown
-    // ---------------------------
-    function renderSourceOptions(sources){
-      sourceOptions.innerHTML = sources.map(s => {
-        const id = `src_${hashString(s)}`;
-        return `
-          <div class="menuRow">
-            <label for="${id}">
-              <input type="checkbox" id="${id}" data-source="${escapeAttr(s)}" checked />
-              <span>${escapeHtml(s)}</span>
-            </label>
-          </div>
-        `;
-      }).join('');
-
-      Array.from(sourceOptions.querySelectorAll('input[type="checkbox"]')).forEach(cb => {
-        cb.addEventListener('change', () => {
-          const src = cb.getAttribute('data-source');
-          if (!src) return;
-          if (cb.checked) filterSources.add(src);
-          else filterSources.delete(src);
-          updateSourceBtnMeta();
-          refresh();
-        });
-      });
-    }
-
-    function updateSourceBtnMeta(){
-      const total = uniq(ITEMS.map(x => x.source || 'Source')).length || 0;
-      const selected = filterSources.size;
-      sourceBtnMeta.textContent = (selected === total) ? 'All' : `${selected}/${total}`;
-    }
-
-    function hashString(s){
-      // stable small hash for element ids
-      let h = 0;
-      for (let i=0;i<s.length;i++) h = ((h<<5)-h) + s.charCodeAt(i) | 0;
-      return Math.abs(h).toString(16);
-    }
-
-    // ---------------------------
-    // Refresh pipeline
-    // ---------------------------
-    function refresh(){
-      const filtered = applyFilters();
-      renderFeed(filtered);
-      renderMarkers(filtered);
-
-      // keep selected marker highlight if still visible
-      if (selectedId && markerById.has(selectedId)) setMarkerHot(selectedId, true);
-    }
-
-    // ---------------------------
-    // Events
-    // ---------------------------
-    elSearch.addEventListener('input', () => {
-      filterQuery = elSearch.value || '';
-      refresh();
-    });
-
-    document.querySelectorAll('.chip[data-range]').forEach(chip => {
-      chip.addEventListener('click', () => {
-        document.querySelectorAll('.chip[data-range]').forEach(c => c.classList.remove('active'));
-        chip.classList.add('active');
-        filterRangeDays = chip.getAttribute('data-range') || 'all';
-        refresh();
-      });
-    });
-
-    document.querySelectorAll('.chip[data-kind]').forEach(chip => {
-      chip.addEventListener('click', () => {
-        document.querySelectorAll('.chip[data-kind]').forEach(c => c.classList.remove('active'));
-        chip.classList.add('active');
-        filterKind = chip.getAttribute('data-kind') || 'all';
-        refresh();
-      });
-    });
-
-    // dropdown open/close
-    sourceBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      sourceMenu.classList.toggle('open');
-    });
-    document.addEventListener('click', () => sourceMenu.classList.remove('open'));
-
-    selectAllSources.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const all = uniq(ITEMS.map(x => x.source || 'Source'));
-      filterSources = new Set(all);
-      Array.from(sourceOptions.querySelectorAll('input[type="checkbox"]')).forEach(cb => cb.checked = true);
-      updateSourceBtnMeta();
-      refresh();
-    });
-    selectNoneSources.addEventListener('click', (e) => {
-      e.stopPropagation();
-      filterSources = new Set();
-      Array.from(sourceOptions.querySelectorAll('input[type="checkbox"]')).forEach(cb => cb.checked = false);
-      updateSourceBtnMeta();
-      refresh();
-    });
-
-    // reset view
-    elReset.addEventListener('click', () => {
-      map.fitBounds(nlBounds, { padding: [24, 24] });
-      // clear selection
-      if (selectedId) setMarkerHot(selectedId, false);
-      selectedId = null;
-      refresh();
-      closeModal();
-    });
-
-    // modal
-    modalClose.addEventListener('click', closeModal);
-    modalMask.addEventListener('click', (e) => {
-      if (e.target === modalMask) closeModal();
-    });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeModal();
-    });
-
-    // ---------------------------
-    // Load data
-    // ---------------------------
-    fetch('./news.json', { cache: 'no-store' })
-      .then(r => r.json())
-      .then(data => {
-        elRefreshDate.textContent = data.refresh_date || '--';
-        RAW_LOCAL = Array.isArray(data.local_news) ? data.local_news : [];
-        RAW_NATIONAL = Array.isArray(data.national_news) ? data.national_news : [];
-
-        buildItems();
-        refresh();
-      })
-      .catch(err => {
-        console.error(err);
-        elFeed.innerHTML = `<div class="empty">Failed to load <strong>news.json</strong>. Verify it exists in the repo root and is valid JSON.</div>`;
-      });
   </script>
 </body>
 </html>
