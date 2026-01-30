@@ -1,119 +1,659 @@
-<!-- redeploy -->
 <!doctype html>
-<html lang="zh">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>荷兰保险业新闻地图（Demo）</title>
+  <title>Netherlands Insurance News Map</title>
 
   <!-- Leaflet -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
   <style>
-    body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, "PingFang SC", "Microsoft YaHei", sans-serif; }
-    header { padding: 12px 16px; border-bottom: 1px solid #eee; display:flex; gap:16px; align-items:center; flex-wrap:wrap;}
-    .badge { padding: 4px 10px; background:#f5f5f5; border-radius: 999px; font-size: 12px; }
-    .wrap { display: grid; grid-template-columns: 1.6fr 1fr; height: calc(100vh - 54px); }
-    #map { height: 100%; }
-    aside { border-left: 1px solid #eee; padding: 12px 12px; overflow:auto; }
-    h2 { margin: 0 0 8px 0; font-size: 16px; }
-    .item { padding: 10px; border: 1px solid #eee; border-radius: 12px; margin-bottom: 10px; }
-    .item a { text-decoration: none; }
-    .meta { color:#666; font-size: 12px; margin-top: 6px; display:flex; gap:8px; flex-wrap:wrap;}
-    .small { color:#666; font-size: 12px; }
-    .hint { color:#666; font-size: 12px; margin-top: 6px; }
-    @media (max-width: 900px) {
-      .wrap { grid-template-columns: 1fr; grid-template-rows: 60vh 40vh; }
-      aside { border-left: none; border-top: 1px solid #eee; }
+    :root{
+      --bg: #0b1020;
+      --panel: rgba(255,255,255,0.08);
+      --panel2: rgba(255,255,255,0.06);
+      --border: rgba(255,255,255,0.12);
+      --text: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.70);
+      --subtle: rgba(255,255,255,0.55);
+      --accent: #7dd3fc;     /* sky */
+      --accent2: #a78bfa;    /* violet */
+      --good: #34d399;       /* emerald */
+      --warn: #fbbf24;       /* amber */
+      --shadow: 0 16px 50px rgba(0,0,0,0.55);
+      --radius: 18px;
+      --radius2: 14px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: radial-gradient(1200px 600px at 20% -10%, rgba(125,211,252,0.18), transparent 55%),
+                  radial-gradient(900px 500px at 90% 0%, rgba(167,139,250,0.18), transparent 50%),
+                  radial-gradient(900px 700px at 40% 110%, rgba(52,211,153,0.12), transparent 55%),
+                  var(--bg);
+      color: var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      overflow: hidden;
+    }
+
+    a { color: inherit; }
+    .app {
+      height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr;
+    }
+
+    header {
+      padding: 16px 18px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,0.10);
+      background: linear-gradient(to bottom, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+      backdrop-filter: blur(14px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .logo {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      background: radial-gradient(circle at 30% 30%, rgba(125,211,252,0.95), rgba(167,139,250,0.95));
+      box-shadow: 0 14px 30px rgba(0,0,0,0.35);
+      position: relative;
+      overflow: hidden;
+    }
+    .logo:after{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent);
+      transform: rotate(25deg);
+      animation: shine 5.5s linear infinite;
+    }
+    @keyframes shine{
+      0%{ transform: translateX(-60%) rotate(25deg); opacity: 0;}
+      18%{opacity: 0.8;}
+      40%{opacity: 0.0;}
+      100%{ transform: translateX(60%) rotate(25deg); opacity: 0;}
+    }
+
+    .titleWrap { min-width: 0; }
+    .title {
+      font-size: 16px;
+      font-weight: 650;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .subtitle {
+      margin-top: 2px;
+      font-size: 12px;
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .metaBar{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(14px);
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .pill strong{
+      color: var(--text);
+      font-weight: 650;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1.55fr 1fr;
+      height: 100%;
+      min-height: 0;
+    }
+
+    #map {
+      height: 100%;
+      width: 100%;
+      position: relative;
+    }
+
+    .side {
+      border-left: 1px solid rgba(255,255,255,0.10);
+      background: linear-gradient(to bottom, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      backdrop-filter: blur(16px);
+      padding: 14px;
+      overflow: auto;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 12px;
+    }
+
+    .panel + .panel{ margin-top: 12px; }
+
+    .sectionTitle{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      margin: 2px 2px 10px 2px;
+    }
+
+    .sectionTitle h2{
+      font-size: 13px;
+      letter-spacing: 0.35px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0;
+      font-weight: 700;
+    }
+
+    .hint{
+      color: var(--subtle);
+      font-size: 12px;
+      line-height: 1.45;
+      margin: 0 2px 10px 2px;
+    }
+
+    .row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    .input{
+      flex: 1 1 240px;
+      position: relative;
+    }
+
+    .input input{
+      width:100%;
+      padding: 10px 12px 10px 36px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 14px;
+      color: var(--text);
+      outline: none;
+    }
+    .input input::placeholder{ color: rgba(255,255,255,0.45); }
+    .input .icon{
+      position:absolute;
+      left:12px;
+      top:50%;
+      transform: translateY(-50%);
+      opacity: 0.70;
+      pointer-events:none;
+    }
+
+    .badge{
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .cards{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .card{
+      border-radius: var(--radius2);
+      border: 1px solid rgba(255,255,255,0.12);
+      background: linear-gradient(to bottom right, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
+      padding: 12px;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+    .card:hover{
+      transform: translateY(-2px);
+      border-color: rgba(125,211,252,0.55);
+      background: linear-gradient(to bottom right, rgba(125,211,252,0.12), rgba(167,139,250,0.08));
+    }
+
+    .cardTitle{
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 1.25;
+      margin: 0;
+    }
+
+    .cardTitle a{
+      text-decoration: none;
+    }
+
+    .cardSummary{
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height: 1.45;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .cardMeta{
+      margin-top: 10px;
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      color: var(--subtle);
+      font-size: 12px;
+    }
+
+    .dot{
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      display:inline-block;
+      background: var(--accent);
+      box-shadow: 0 0 0 6px rgba(125,211,252,0.12);
+      margin-right: 6px;
+      vertical-align: middle;
+    }
+
+    /* Leaflet polish */
+    .leaflet-control-zoom a{
+      background: rgba(255,255,255,0.08) !important;
+      border: 1px solid rgba(255,255,255,0.14) !important;
+      color: var(--text) !important;
+      backdrop-filter: blur(12px);
+      border-radius: 12px !important;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.35);
+    }
+    .leaflet-bar{
+      border: none !important;
+      box-shadow: none !important;
+    }
+    .leaflet-control-zoom{
+      margin: 14px !important;
+    }
+
+    .leaflet-tooltip{
+      background: rgba(10,14,28,0.88);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--text);
+      border-radius: 14px;
+      padding: 10px 10px;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.55);
+      backdrop-filter: blur(12px);
+    }
+    .leaflet-tooltip-top:before,
+    .leaflet-tooltip-bottom:before,
+    .leaflet-tooltip-left:before,
+    .leaflet-tooltip-right:before{
+      border-top-color: rgba(255,255,255,0.12) !important;
+      border-bottom-color: rgba(255,255,255,0.12) !important;
+      border-left-color: rgba(255,255,255,0.12) !important;
+      border-right-color: rgba(255,255,255,0.12) !important;
+    }
+
+    .leaflet-popup-content-wrapper{
+      background: rgba(10,14,28,0.92);
+      color: var(--text);
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.14);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 22px 55px rgba(0,0,0,0.60);
+    }
+    .leaflet-popup-tip{
+      background: rgba(10,14,28,0.92);
+      border: 1px solid rgba(255,255,255,0.14);
+    }
+    .leaflet-container a.leaflet-popup-close-button{
+      color: rgba(255,255,255,0.85);
+    }
+
+    .popupTitle{
+      font-weight: 800;
+      font-size: 14px;
+      margin: 0 0 6px 0;
+      letter-spacing: 0.1px;
+    }
+    .popupSummary{
+      margin: 0 0 10px 0;
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height: 1.45;
+    }
+    .popupMeta{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      color: var(--subtle);
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding: 9px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: linear-gradient(to bottom right, rgba(125,211,252,0.18), rgba(167,139,250,0.18));
+      color: var(--text);
+      text-decoration:none;
+      font-weight: 700;
+      font-size: 12px;
+    }
+    .btn:hover{
+      border-color: rgba(125,211,252,0.6);
+    }
+
+    .loading{
+      color: var(--muted);
+      font-size: 12px;
+      padding: 8px 2px 2px 2px;
+    }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      body{ overflow:auto; }
+      .layout{
+        grid-template-columns: 1fr;
+        grid-template-rows: 62vh auto;
+      }
+      .side{
+        border-left:none;
+        border-top: 1px solid rgba(255,255,255,0.10);
+      }
     }
   </style>
 </head>
-<body>
-  <header>
-    <div><strong>荷兰保险业新闻地图（Demo）</strong></div>
-    <div class="badge" id="refreshBadge">Refresh date: --</div>
-    <div class="small">提示：hover 看摘要；点击标点跳转新闻。</div>
-  </header>
 
-  <div class="wrap">
-    <div id="map"></div>
-    <aside>
-      <h2>荷兰总体相关（National）</h2>
-      <div class="hint">这里展示不绑定具体城市/坐标的新闻。</div>
-      <div id="nationalList"></div>
-    </aside>
+<body>
+  <div class="app">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div class="titleWrap">
+          <div class="title">Netherlands Insurance News Map</div>
+          <div class="subtitle">Local signals on the map · National updates on the right</div>
+        </div>
+      </div>
+
+      <div class="metaBar">
+        <div class="pill" id="refreshPill">
+          <span style="opacity:.75">Last updated</span>
+          <strong id="refreshDate">--</strong>
+        </div>
+        <div class="pill">
+          <span style="opacity:.75">Interaction</span>
+          <strong>Hover</strong><span style="opacity:.65">preview</span> · <strong>Click</strong><span style="opacity:.65">open</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="layout">
+      <div id="map"></div>
+
+      <div class="side">
+        <div class="panel">
+          <div class="sectionTitle">
+            <h2>National</h2>
+            <div class="badge" id="nationalCount">0 items</div>
+          </div>
+          <p class="hint">
+            Items without a specific city/coordinate. Use search to quickly scan themes and regulations.
+          </p>
+
+          <div class="row" style="margin: 0 0 10px 0;">
+            <div class="input">
+              <span class="icon" aria-hidden="true">
+                <!-- search icon -->
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="rgba(255,255,255,.75)" stroke-width="2"/>
+                  <path d="M16.5 16.5 21 21" stroke="rgba(255,255,255,.75)" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </span>
+              <input id="searchBox" type="text" placeholder="Search titles, summaries, sources…" />
+            </div>
+          </div>
+
+          <div id="nationalList" class="cards">
+            <div class="loading">Loading…</div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="sectionTitle">
+            <h2>Local</h2>
+            <div class="badge" id="localCount">0 points</div>
+          </div>
+          <p class="hint" style="margin-bottom:0">
+            City-linked items appear as elegant signal dots. Hover to preview; click to open the article.
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script>
-    // 1) 初始化地图：视角框住荷兰
-    const map = L.map('map', { zoomControl: true });
-    const nlBounds = L.latLngBounds([50.75, 3.2], [53.7, 7.25]); // 荷兰大致范围
-    map.fitBounds(nlBounds);
+    // --- Map setup (Netherlands focus) ---
+    const map = L.map('map', {
+      zoomControl: true,
+      preferCanvas: true
+    });
 
-    // 2) 底图
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    // Netherlands-ish bounds
+    const nlBounds = L.latLngBounds([50.75, 3.2], [53.7, 7.25]);
+    map.fitBounds(nlBounds, { padding: [20, 20] });
+
+    // A more aesthetic basemap (Carto light). No API key needed.
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
       maxZoom: 19,
-      attribution: '&copy; OpenStreetMap contributors'
+      attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
     }).addTo(map);
 
-    // 3) 读取假数据
+    // Subtle vignette overlay for premium look
+    const overlay = L.rectangle(nlBounds, {
+      stroke: false,
+      fill: true,
+      fillOpacity: 0.07,
+      fillColor: '#0b1020'
+    }).addTo(map);
+
+    // --- Data loading ---
+    let NATIONAL = [];
+    let LOCAL = [];
+
+    const elRefresh = document.getElementById('refreshDate');
+    const elNationalList = document.getElementById('nationalList');
+    const elNationalCount = document.getElementById('nationalCount');
+    const elLocalCount = document.getElementById('localCount');
+    const elSearch = document.getElementById('searchBox');
+
     fetch('./news.json', { cache: 'no-store' })
       .then(r => r.json())
       .then(data => {
-        // refresh date
-        document.getElementById('refreshBadge').textContent = `Refresh date: ${data.refresh_date || '--'}`;
+        elRefresh.textContent = data.refresh_date || '--';
 
-        // 地方新闻：打点
-        (data.local_news || []).forEach(n => {
-          const marker = L.marker([n.lat, n.lng]).addTo(map);
+        NATIONAL = Array.isArray(data.national_news) ? data.national_news.slice() : [];
+        LOCAL = Array.isArray(data.local_news) ? data.local_news.slice() : [];
 
-          // hover：用 tooltip（小浮层）
-          marker.bindTooltip(
-            `<div style="max-width:260px">
-              <div style="font-weight:600;margin-bottom:6px">${escapeHtml(n.title)}</div>
-              <div style="font-size:12px;line-height:1.35;color:#444">${escapeHtml(n.summary)}</div>
-            </div>`,
-            { direction: 'top', sticky: true, opacity: 0.95 }
-          );
+        // Sort national by published_at desc if present
+        NATIONAL.sort((a,b) => (b.published_at || '').localeCompare(a.published_at || ''));
 
-          // click：新标签打开链接
-          marker.on('click', () => {
-            if (n.url) window.open(n.url, '_blank', 'noopener,noreferrer');
-          });
-        });
+        elNationalCount.textContent = `${NATIONAL.length} items`;
+        elLocalCount.textContent = `${LOCAL.length} points`;
 
-        // 全国新闻：右侧列表
-        const box = document.getElementById('nationalList');
-        const items = data.national_news || [];
-        if (items.length === 0) {
-          box.innerHTML = `<div class="small">暂无 national 新闻</div>`;
-        } else {
-          box.innerHTML = items.map(n => `
-            <div class="item">
-              <div><a href="${n.url}" target="_blank" rel="noopener noreferrer"><strong>${escapeHtml(n.title)}</strong></a></div>
-              <div class="small" style="margin-top:6px;line-height:1.35">${escapeHtml(n.summary)}</div>
-              <div class="meta">
-                <span>${escapeHtml(n.published_at || '')}</span>
-                <span>${escapeHtml(n.source || '')}</span>
-              </div>
-            </div>
-          `).join('');
-        }
+        renderNational();
+        renderLocalPoints();
       })
       .catch(err => {
         console.error(err);
-        alert('读取 news.json 失败：请确认文件在仓库根目录，且 JSON 格式正确。');
+        elNationalList.innerHTML = `<div class="loading">Failed to load <strong>news.json</strong>. Please verify the file exists in the repo root and is valid JSON.</div>`;
       });
 
-    // 简单防 XSS：转义
-    function escapeHtml(str) {
+    // --- Local points (beautiful signal dots) ---
+    const localLayer = L.layerGroup().addTo(map);
+
+    function renderLocalPoints(){
+      localLayer.clearLayers();
+
+      LOCAL.forEach(n => {
+        const lat = Number(n.lat);
+        const lng = Number(n.lng);
+        if (!Number.isFinite(lat) || !Number.isFinite(lng)) return;
+
+        // Create a premium-looking "signal dot" via circleMarker
+        const marker = L.circleMarker([lat, lng], {
+          radius: 7,
+          color: 'rgba(255,255,255,0.75)',
+          weight: 1,
+          fillColor: '#7dd3fc',
+          fillOpacity: 0.85
+        }).addTo(localLayer);
+
+        // Halo ring (separate circle for glow)
+        const halo = L.circleMarker([lat, lng], {
+          radius: 16,
+          stroke: false,
+          fillColor: '#7dd3fc',
+          fillOpacity: 0.10
+        }).addTo(localLayer);
+
+        // Keep halo behind
+        halo.bringToBack();
+        marker.bringToFront();
+
+        // Hover tooltip preview
+        marker.bindTooltip(
+          `<div style="max-width:280px">
+            <div style="font-weight:800; margin-bottom:6px; letter-spacing:.1px">${escapeHtml(n.title)}</div>
+            <div style="font-size:12.5px; line-height:1.45; color:rgba(255,255,255,0.82)">${escapeHtml(n.summary || '')}</div>
+          </div>`,
+          { direction: 'top', sticky: true, opacity: 0.96 }
+        );
+
+        // Hover state polish
+        marker.on('mouseover', () => {
+          marker.setStyle({ radius: 9, weight: 1.5, fillOpacity: 0.95 });
+          halo.setStyle({ radius: 20, fillOpacity: 0.14 });
+        });
+        marker.on('mouseout', () => {
+          marker.setStyle({ radius: 7, weight: 1, fillOpacity: 0.85 });
+          halo.setStyle({ radius: 16, fillOpacity: 0.10 });
+        });
+
+        // Click popup with CTA
+        marker.on('click', () => {
+          const url = n.url || '';
+          const html = `
+            <div>
+              <div class="popupTitle">${escapeHtml(n.title)}</div>
+              <div class="popupSummary">${escapeHtml(n.summary || '')}</div>
+              <div class="popupMeta">
+                <span><span class="dot"></span>${escapeHtml(n.source || 'Source')}</span>
+                ${n.published_at ? `<span>· ${escapeHtml(n.published_at)}</span>` : ''}
+              </div>
+              ${url ? `<a class="btn" href="${escapeAttr(url)}" target="_blank" rel="noopener noreferrer">
+                Open article
+                <span aria-hidden="true">↗</span>
+              </a>` : `<span style="color:rgba(255,255,255,0.6); font-size:12px">No URL available</span>`}
+            </div>
+          `;
+          marker.bindPopup(html, { closeButton: true, autoPanPadding: [18, 18] }).openPopup();
+        });
+      });
+    }
+
+    // --- National list (cards + search) ---
+    function renderNational(){
+      const q = (elSearch.value || '').trim().toLowerCase();
+      const filtered = q
+        ? NATIONAL.filter(n => {
+            const blob = `${n.title||''} ${n.summary||''} ${n.source||''}`.toLowerCase();
+            return blob.includes(q);
+          })
+        : NATIONAL;
+
+      elNationalCount.textContent = `${filtered.length} items`;
+
+      if (filtered.length === 0){
+        elNationalList.innerHTML = `<div class="loading">No results.</div>`;
+        return;
+      }
+
+      elNationalList.innerHTML = filtered.map(n => {
+        const url = n.url || '#';
+        const source = n.source || 'Source';
+        const date = n.published_at || '';
+        return `
+          <div class="card">
+            <p class="cardTitle">
+              <a href="${escapeAttr(url)}" target="_blank" rel="noopener noreferrer">
+                ${escapeHtml(n.title || 'Untitled')}
+              </a>
+            </p>
+            <div class="cardSummary">${escapeHtml(n.summary || '')}</div>
+            <div class="cardMeta">
+              <span><span class="dot"></span>${escapeHtml(source)}</span>
+              ${date ? `<span>· ${escapeHtml(date)}</span>` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    elSearch.addEventListener('input', () => renderNational());
+
+    // --- Safety escaping helpers ---
+    function escapeHtml(str){
       return String(str ?? '')
         .replaceAll('&', '&amp;')
         .replaceAll('<', '&lt;')
         .replaceAll('>', '&gt;')
         .replaceAll('"', '&quot;')
         .replaceAll("'", '&#039;');
+    }
+    function escapeAttr(str){
+      // Keep it simple: escape quotes and angle brackets
+      return String(str ?? '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;');
     }
   </script>
 </body>
