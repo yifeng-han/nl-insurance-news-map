@@ -1,73 +1,88 @@
 {
-  "refresh_date": "2026-01-29",
+  "refresh_date": "2026-01-30",
   "local_news": [
     {
-      "id": "n1",
-      "title": "Amsterdam：某保险公司推出新型电动车险",
-      "summary": "面向城市通勤电动车用户，强调盗抢与电池保障。",
-      "url": "https://example.com/news/amsterdam-ev-insurance",
-      "published_at": "2026-01-28",
-      "source": "Demo Source",
-      "lat": 52.3676,
-      "lng": 4.9041
+      "id": "n_bfd6dffcfc",
+      "title": "Laat je inspireren op het VVP Kennisevent Pensioen & Vermogen",
+      "summary": "VVP hosts the third Kennisevent Pensioen & Vermogen on 11 February 2026 at AFAS Theater, Leusden, featuring experts Noach van Beusekom and Corné van Zeijl, with breakout sessions by partners including Allianz, Brand New Day, NNEK and OAKK.",
+      "url": "https://infinance.nl/pensioenen/laat-je-inspireren-op-het-vvp-pensioen-en-vermogen-event/",
+      "published_at": "2026-01-29",
+      "source": "InFinance",
+      "topics": [
+        "pensions",
+        "investments",
+        "advisers",
+        "event"
+      ],
+      "location_label": "Leusden",
+      "location_confidence": 0.95,
+      "lat": 52.33485407,
+      "lng": 6.66197022
     },
     {
-      "id": "n2",
-      "title": "Rotterdam：港口物流险费率调整讨论升温",
-      "summary": "多家机构关注海运风险与供应链中断条款变化。",
-      "url": "https://example.com/news/rotterdam-port-insurance",
-      "published_at": "2026-01-27",
-      "source": "Demo Source",
-      "lat": 51.9244,
-      "lng": 4.4777
-    },
-    {
-      "id": "n3",
-      "title": "Utrecht：健康险理赔数字化试点扩围",
-      "summary": "试点将覆盖更多诊所，目标缩短理赔周期。",
-      "url": "https://example.com/news/utrecht-health-claims",
-      "published_at": "2026-01-26",
-      "source": "Demo Source",
-      "lat": 52.0907,
-      "lng": 5.1214
-    },
-    {
-      "id": "n4",
-      "title": "Eindhoven：网络安全险对中小企业需求上升",
-      "summary": "制造业中小企业对停工损失与数据泄露条款更敏感。",
-      "url": "https://example.com/news/eindhoven-cyber",
-      "published_at": "2026-01-25",
-      "source": "Demo Source",
-      "lat": 51.4416,
-      "lng": 5.4697
-    },
-    {
-      "id": "n5",
-      "title": "Groningen：房屋地震风险相关保险信息更新",
-      "summary": "地方机构更新理赔说明，强调评估与材料准备。",
-      "url": "https://example.com/news/groningen-earthquake",
-      "published_at": "2026-01-24",
-      "source": "Demo Source",
-      "lat": 53.2194,
-      "lng": 6.5665
+      "id": "n_d2991b71c9",
+      "title": "Laat je inspireren op het VVP Kennisevent Pensioen &amp; Vermogen",
+      "summary": "InFinance announces VVP’s third Kennisevent Pensioen & Vermogen on 11 February 2026 at AFAS Theater in Leusden, targeting financial advisors with plenary sessions by top specialists.",
+      "url": "https://www.verzekeringsnieuws.nl/artikel/127728-laat-je-inspireren-op-het-vvp-kennisevent-pensioen-vermogen",
+      "published_at": "2026-01-29",
+      "source": "Verzekeringsnieuws - Algemeen",
+      "topics": [
+        "pensions",
+        "advice",
+        "event"
+      ],
+      "location_label": "Leusden",
+      "location_confidence": 0.9,
+      "lat": 52.33485407,
+      "lng": 6.66197022
     }
   ],
   "national_news": [
     {
-      "id": "nn1",
-      "title": "荷兰：保险业监管季度要点发布",
-      "summary": "围绕消费者保护、透明度与风险管理提出新关注点。",
-      "url": "https://example.com/news/nl-regulatory-update",
-      "published_at": "2026-01-28",
-      "source": "Demo Source"
+      "id": "n_cedc63fe7c",
+      "title": "Vakbonden: vertrouwen geschaad door ingrepen in sociale zekerheid",
+      "summary": "Dutch unions say raising the AOW pension age violates the pension accord and undermines trust, warning they may rally at The Hague’s Malieveld.",
+      "url": "https://www.verzekeringsnieuws.nl/artikel/127745-vakbonden-vertrouwen-geschaad-door-ingrepen-sociale-zekerheid",
+      "published_at": "2026-01-30",
+      "source": "Verzekeringsnieuws - Algemeen",
+      "topics": [
+        "pensions",
+        "regulation",
+        "retirement"
+      ],
+      "location_label": null,
+      "location_confidence": 0
     },
     {
-      "id": "nn2",
-      "title": "荷兰：气候相关风险披露实践讨论",
-      "summary": "行业讨论如何在承保与投资侧反映气候风险。",
-      "url": "https://example.com/news/nl-climate-risk",
-      "published_at": "2026-01-27",
-      "source": "Demo Source"
+      "id": "n_2631c63554",
+      "title": "Langer doorwerken: dertiger van nu pas met 70 jaar met pensioen",
+      "summary": "Dutch coalition parties D66, VVD and CDA propose AOW retirement age to rise faster from 2033, tied to life expectancy; CPB projects 70 years 9 months by 2060, so today’s thirty-somethings would retire around 70.",
+      "url": "https://www.verzekeringsnieuws.nl/artikel/127744-langer-doorwerken-dertiger-van-nu-pas-met-70-jaar-met-pensioen",
+      "published_at": "2026-01-30",
+      "source": "Verzekeringsnieuws - Algemeen",
+      "topics": [
+        "pensions",
+        "regulation",
+        "retirement-age"
+      ],
+      "location_label": null,
+      "location_confidence": 0
+    },
+    {
+      "id": "n_f28fb50906",
+      "title": "Marktreacties: 'Kabinet-Jetten lost hypotheekknelpunten vooralsnog niet op'",
+      "summary": "Dutch coalition agreement under prospective PM Rob Jetten draws mixed housing-market reactions: De Hypotheekshop says mortgage bottlenecks persist, including interest-only limits and 2031 deduction issues; NHG welcomes sustainability plans, urging accessible financing and predictable policy.",
+      "url": "https://infinance.nl/artikel/reacties-op-coalitieakkoord-beoogd-kabinet-jetten/",
+      "published_at": "2026-01-30",
+      "source": "InFinance",
+      "topics": [
+        "regulation",
+        "mortgages",
+        "housing",
+        "sustainability"
+      ],
+      "location_label": null,
+      "location_confidence": 0
     }
   ]
 }
