@@ -2,62 +2,80 @@
   "refresh_date": "2026-01-30",
   "local_news": [
     {
+      "id": "n_bfd6dffcfc",
+      "title": "Laat je inspireren op het VVP Kennisevent Pensioen & Vermogen",
+      "summary": "VVP will host the third Pension & Wealth Knowledge Event on 11 February 2026 at AFAS Theater in Leusden, featuring experts Noach van Beusekom and Corné van Zeijl and breakouts by partners including Allianz, Brand New Day, NNEK and others.",
+      "url": "https://infinance.nl/pensioenen/laat-je-inspireren-op-het-vvp-pensioen-en-vermogen-event/",
+      "published_at": "2026-01-29",
+      "source": "InFinance",
+      "topics": [
+        "pensions",
+        "wealth",
+        "advice",
+        "insurers",
+        "event"
+      ],
+      "location_label": "Leusden",
+      "location_confidence": 0.95,
+      "lat": 52.33485407,
+      "lng": 6.66197022
+    },
+    {
       "id": "n_d2991b71c9",
       "title": "Laat je inspireren op het VVP Kennisevent Pensioen &amp; Vermogen",
-      "summary": "VVP organiseert op 11 februari 2026 de derde editie van het Kennisevent Pensioen & Vermogen in het AFAS Theater in Leusden, met topspecialisten en inzichten voor financieel adviseurs in een snel veranderende markt.",
+      "summary": "VVP will host the third Pension & Wealth Knowledge Event on 11 February 2026 at AFAS Theater in Leusden, featuring plenary sessions by top specialists for financial advisers.",
       "url": "https://www.verzekeringsnieuws.nl/artikel/127728-laat-je-inspireren-op-het-vvp-kennisevent-pensioen-vermogen",
       "published_at": "2026-01-29",
       "source": "Verzekeringsnieuws - Algemeen",
       "topics": [
         "pensions",
-        "wealth",
         "advice",
         "event"
       ],
       "location_label": "Leusden",
-      "location_confidence": 0.96,
+      "location_confidence": 0.92,
       "lat": 52.33485407,
       "lng": 6.66197022
     },
     {
-      "id": "n_4ca99ce744",
-      "title": "Schouten wint miljoenenzaak om klantjepik van Aon",
-      "summary": "Rechtbank Rotterdam wees alle vorderingen van Aon tegen Schouten Zekerheid en drie ex-werknemers af. Aons kort geding voor verbod op klantbenadering en ruim €2 miljoen schadevergoeding wegens vermeende onrechtmatige concurrentie na overstap accountmanagers werd afgewezen.",
-      "url": "https://www.amweb.nl/156776/schouten-wint-miljoenenzaak-om-klantjepik-van-aon",
-      "published_at": "2026-01-23",
+      "id": "n_246bbd6960",
+      "title": "Nieuwe schadeverzekeraar betreedt de Nederlandse markt",
+      "summary": "Eucare expands into Dutch non-life insurance with a De Nederlandsche Bank license, planning to operate via delegated authorities and establish a presence in Rotterdam, complementing its existing health insurance operations.",
+      "url": "https://www.amweb.nl/156792/nieuwe-schadeverzekeraar-betreedt-de-nederlandse-markt",
+      "published_at": "2026-01-26",
       "source": "AMweb - AMsignalen",
       "topics": [
-        "brokers",
-        "litigation",
-        "competition"
+        "regulation",
+        "market entry",
+        "non-life",
+        "distribution"
       ],
       "location_label": "Rotterdam",
-      "location_confidence": 0.8,
+      "location_confidence": 0.95,
       "lat": 51.93101775,
       "lng": 4.27687952
-    },
-    {
-      "id": "n_12ce2766d8",
-      "title": "Welkom Elvani Verzekeringen als nieuw Adfiz lid",
-      "summary": "Adfiz verwelkomt Elvani Verzekeringen uit Monster als nieuw lid. Het kantoor sluit aan bij de regio Zuid-Holland/Utrecht.",
-      "url": "https://adfiz.nlhttps://www.adfiz.nl/nieuws/adfiz-berichten/welkom-elvani-verzekeringen-als-nieuw-adfiz-lid/",
-      "published_at": "2026-01-19",
-      "source": "Adfiz",
-      "topics": [
-        "brokers",
-        "associations"
-      ],
-      "location_label": "Monster",
-      "location_confidence": 0.9,
-      "lat": 52.03397518,
-      "lng": 4.17953697
     }
   ],
   "national_news": [
     {
+      "id": "n_cedc63fe7c",
+      "title": "Vakbonden: vertrouwen geschaad door ingrepen in sociale zekerheid",
+      "summary": "Dutch unions say raising the AOW state pension age breaches the pension accord and erodes trust, warning of possible protests on The Hague’s Malieveld.",
+      "url": "https://www.verzekeringsnieuws.nl/artikel/127745-vakbonden-vertrouwen-geschaad-door-ingrepen-sociale-zekerheid",
+      "published_at": "2026-01-30",
+      "source": "Verzekeringsnieuws - Algemeen",
+      "topics": [
+        "pensions",
+        "regulation",
+        "social security"
+      ],
+      "location_label": null,
+      "location_confidence": 0
+    },
+    {
       "id": "n_2631c63554",
       "title": "Langer doorwerken: dertiger van nu pas met 70 jaar met pensioen",
-      "summary": "D66, VVD en CDA willen de AOW-leeftijd vanaf 2033 automatisch laten meestijgen met de levensverwachting; volgens CPB zou die in 2060 uitkomen op 70 jaar en 9 maanden. Doel: betaalbaarheid van de AOW.",
+      "summary": "Dutch coalition parties propose linking AOW retirement age to life expectancy from 2033. CPB projects the state pension age could reach 70 years and 9 months by 2060.",
       "url": "https://www.verzekeringsnieuws.nl/artikel/127744-langer-doorwerken-dertiger-van-nu-pas-met-70-jaar-met-pensioen",
       "published_at": "2026-01-30",
       "source": "Verzekeringsnieuws - Algemeen",
@@ -69,9 +87,25 @@
       "location_confidence": 0
     },
     {
+      "id": "n_f28fb50906",
+      "title": "Marktreacties: 'Kabinet-Jetten lost hypotheekknelpunten vooralsnog niet op'",
+      "summary": "Dutch reactions to Jetten cabinet’s coalition pact: De Hypotheekshop says mortgage bottlenecks persist; NHG welcomes sustainability plans, warns of a split for poor-label homeowners, and urges accessible retrofit financing and predictable policy.",
+      "url": "https://infinance.nl/artikel/reacties-op-coalitieakkoord-beoogd-kabinet-jetten/",
+      "published_at": "2026-01-30",
+      "source": "InFinance",
+      "topics": [
+        "regulation",
+        "mortgages",
+        "brokers",
+        "sustainability"
+      ],
+      "location_label": null,
+      "location_confidence": 0
+    },
+    {
       "id": "n_d5b32a93f3",
       "title": "Söderberg breidt uit met internationale dienstverlening",
-      "summary": "Söderberg & Partners breidt in Nederland uit met De Waal & Partners als label voor International Broker Management, om verzekeringsadviseurs te ondersteunen bij grensoverschrijdende verzekeringsoplossingen via een internationaal netwerk.",
+      "summary": "Söderberg & Partners launched De Waal & Partners to expand international broker management in the Netherlands, enabling affiliated insurance advisers to arrange cross-border solutions via a vetted global network while retaining client relationships and control.",
       "url": "https://infinance.nl/artikel/soderberg-breidt-uit-met-internationale-dienstverlening/",
       "published_at": "2026-01-30",
       "source": "InFinance",
@@ -86,14 +120,15 @@
     {
       "id": "n_dee012af44",
       "title": "BND boekt recordjaar met ruim 100.000 nieuwe rekeningen",
-      "summary": "Brand New Day groeide in 2025 met >100.000 nieuwe pensioenrekeningen naar 450.451 (+22%) en 10,6 mrd euro beheerd vermogen. CEO Gerjan de Lange noemt de nieuwe pensioenwet, marketing en klanttevredenheid als groeifactoren; meer jongeren en vrouwen sluiten aan.",
+      "summary": "Brand New Day added over 100,000 new pension accounts in 2025, lifting total to 450,451 and assets to €10.6bn (+25%). CEO targets €15bn by 2027; growth aided by new pension law and higher contributions.",
       "url": "https://infinance.nl/artikel/bnd-boekt-recordjaar-met-ruim-100-000-nieuwe-rekeningen/",
       "published_at": "2026-01-30",
       "source": "InFinance",
       "topics": [
         "pensions",
         "regulation",
-        "growth"
+        "growth",
+        "AUM"
       ],
       "location_label": null,
       "location_confidence": 0
@@ -101,15 +136,15 @@
     {
       "id": "n_c33a432a2d",
       "title": "CFD pleit voor fiscale aftrekbaarheid advieskosten lijfrente",
-      "summary": "CFD vraagt kabinet en Kamer om herinvoering van fiscale aftrek van advies- en bemiddelingskosten bij lijfrente, beperkt tot onafhankelijke adviseurs, om gebruik van de derde pijler te vergroten en inconsistente regels rond ORV te herstellen.",
+      "summary": "CFD urges Dutch ministries and MPs to reintroduce tax deductibility of advisory and mediation costs for annuities, limited to independent advisers, arguing it would revive third-pillar pension savings and address inconsistencies under the WTP and ORV rules.",
       "url": "https://infinance.nl/artikel/cfd-pleit-voor-fiscale-aftrekbaarheid-advieskosten-lijfrente/",
       "published_at": "2026-01-30",
       "source": "InFinance",
       "topics": [
-        "regulation",
         "pensions",
+        "regulation",
         "tax",
-        "brokers"
+        "advice"
       ],
       "location_label": null,
       "location_confidence": 0
@@ -117,355 +152,15 @@
     {
       "id": "n_ab83f24ad1",
       "title": "ASR stopt samenwerking met ‘onbetrouwbare’ letselschadepartijen",
-      "summary": "Verzekeraar ASR stopt de samenwerking met Fides Letselschade, Fides Legal en Trias Legal wegens gebrek aan vertrouwen dat zij letselschadeslachtoffers deskundig en integer bijstaan.",
+      "summary": "Dutch insurer ASR ended cooperation with Fides Letselschade, Fides Legal and Trias Legal, citing lack of trust in their expert and ethical representation of personal injury victims.",
       "url": "https://www.amweb.nl/156856/asr-stopt-samenwerking-met-onbetrouwbare-letselschadepartijen",
       "published_at": "2026-01-30",
       "source": "AMweb - AMsignalen",
       "topics": [
         "claims",
-        "compliance",
-        "legal"
-      ],
-      "location_label": null,
-      "location_confidence": 0
-    },
-    {
-      "id": "n_4023a2307c",
-      "title": "Söderberg richt nieuwe tak op gespecialiseerd in buitenland",
-      "summary": "Söderberg & Partners lanceert De Waal & Partners, een nieuwe tak voor internationale dienstverlening. Het label ondersteunt Nederlandse verzekeringsadviseurs bij het organiseren van grensoverschrijdende verzekeringsoplossingen.",
-      "url": "https://www.amweb.nl/156853/soderberg-richt-nieuwe-tak-op-gespecialiseerd-in-buitenland",
-      "published_at": "2026-01-30",
-      "source": "AMweb - AMsignalen",
-      "topics": [
-        "brokers",
-        "international",
-        "distribution",
-        "cross-border"
-      ],
-      "location_label": null,
-      "location_confidence": 0
-    },
-    {
-      "id": "n_7cb0e8a8bc",
-      "title": "Jan van der Struik nieuwe COO schadebedrijf D&#038;S Group",
-      "summary": "Jan van der Struik is per 12 januari 2026 benoemd tot COO P&C (schade) bij D&S Group, met focus op versterking van schadedistributie via het intermediair.",
-      "url": "https://www.amweb.nl/156842/jan-van-der-struik-nieuwe-coo-schadetak-ds-group",
-      "published_at": "2026-01-29",
-      "source": "AMweb - AMsignalen",
-      "topics": [
-        "schade",
-        "brokers",
-        "distribution",
-        "appointments"
-      ],
-      "location_label": null,
-      "location_confidence": 0
-    },
-    {
-      "id": "n_5edfc5ca70",
-      "title": "Kifid: 'Adviseur schoot tekort in dossiervorming bij ORV-advies'",
-      "summary": "De Kifid-beroepscommissie oordeelt dat een assurantieadviseur haar zorgplicht schond door geen gespreksnotities te maken bij een ORV-advies. De claim van de consument is afgewezen, omdat premievrijstelling bij AO destijds waarschijnlijk niet verzekerbaar was.",
-      "url": "https://infinance.nl/verzekeringen/leven/kifid-adviseur-schoot-tekort-in-dossiervorming-bij-orv-advies/",
-      "published_at": "2026-01-29",
-      "source": "InFinance",
-      "topics": [
-        "brokers",
-        "life",
-        "regulation",
-        "claims"
-      ],
-      "location_label": null,
-      "location_confidence": 0
-    },
-    {
-      "id": "n_2c205c209a",
-      "title": "DAS pleit voor verplichte AVP voor e-bikers",
-      "summary": "DAS Rechtsbijstand meldt 12% meer verkeerszaken met e-bikes in 2025; in meer dan de helft is letsel en vaak is de e-biker aansprakelijk. DAS pleit daarom voor een verplichte AVP voor e-bikers om schades beter af te handelen.",
-      "url": "https://infinance.nl/artikel/das-pleit-voor-verplichte-avp-voor-e-bikers/",
-      "published_at": "2026-01-29",
-      "source": "InFinance",
-      "topics": [
-        "regulation",
-        "liability",
-        "claims",
-        "mobility"
-      ],
-      "location_label": null,
-      "location_confidence": 0
-    },
-    {
-      "id": "n_33f886cb24",
-      "title": "Nieuwe directeur bij IG&#038;H",
-      "summary": "Sabine van Gompel, ex-programmadirecteur Wet toekomst pensioenen bij Blue Sky Group, is benoemd tot directeur Financiële Dienstverlening – Pensioenen bij advies- en technologiebedrijf IG&H.",
-      "url": "https://www.amweb.nl/156831/nieuwe-directeur-bij-igh",
-      "published_at": "2026-01-29",
-      "source": "AMweb - AMsignalen",
-      "topics": [
-        "pensions",
-        "appointments"
-      ],
-      "location_label": null,
-      "location_confidence": 0
-    },
-    {
-      "id": "n_dc65e98433",
-      "title": "Baobab lanceert cyberverzekering die wekelijks kwetsbaarheden opspoort",
-      "summary": "Gevolmachtigde agent Baobab lanceert per 1 februari een cyberverzekering die wekelijks kwetsbaarheden en gelekte wachtwoorden opspoort via een digitale gezondheidscheck, met nadruk op preventie; volgens Baobab voorkwam dit al miljoenen euro aan schade.",
-      "url": "https://www.amweb.nl/156834/baobab-lanceert-cyberverzekering-die-wekelijks-kwetsbaarheden-opspoort",
-      "published_at": "2026-01-29",
-      "source": "AMweb - AMsignalen",
-      "topics": [
-        "cyber",
-        "prevention",
-        "product"
-      ],
-      "location_label": null,
-      "location_confidence": 0
-    },
-    {
-      "id": "n_b715cdaa45",
-      "title": "Minister SZW: slechts een beperkt deel van pensioenregeling bij verzekeraar en PPI omgezet naar nieuwe pensioenstelsel",
-      "summary": "De minister van SZW meldt dat de pensioentransitie achterloopt: 22% van verzekerde regelingen en 31% bij PPI’s besloten over nieuwe regeling. Vooral kleine werkgevers stellen uit; MKB moet snel handelen.",
-      "url": "https://adfiz.nlhttps://www.adfiz.nl/nieuws/adfiz-berichten/minister-szw-slechts-een-beperkt-deel-van-pensioenregeling-bij-verzekeraar-en-ppi-omgezet-naar-nieuwe-pensioenstelsel/",
-      "published_at": "2026-01-29",
-      "source": "Adfiz",
-      "topics": [
-        "pensions",
-        "regulation",
-        "insurers"
-      ],
-      "location_label": null,
-      "location_confidence": 0
-    },
-    {
-      "id": "n_ff9026157b",
-      "title": "Sabine van Gompel versterkt IG&H als directeur Pensioenen",
-      "summary": "Sabine van Gompel (43) wordt directeur Pensioenen bij IG&H. Vanuit Blue Sky Group brengt zij 20 jaar pensioensectorervaring mee en focust op Wtp-transitie, regelgeving, procesinrichting en digitalisering voor pensioenfondsen en uitvoerders.",
-      "url": "https://infinance.nl/branche/carriere/sabine-van-gompel-versterkt-igh-als-directeur-pensioenen/",
-      "published_at": "2026-01-29",
-      "source": "InFinance",
-      "topics": [
-        "pensions",
-        "regulation",
-        "digitalization",
-        "IT-systems"
-      ],
-      "location_label": null,
-      "location_confidence": 0
-    },
-    {
-      "id": "n_1ec6457518",
-      "title": "Sabine van Gompel versterkt IG&amp;H als directeur Pensioenen",
-      "summary": "Sabine van Gompel (43) treedt toe tot IG&H als directeur Financiële Dienstverlening – Pensioenen. Ze komt van Blue Sky Group, waar zij de implementatie van de Wet toekomst pensioenen leidde, en brengt ruim twintig jaar ervaring mee.",
-      "url": "https://www.verzekeringsnieuws.nl/artikel/127726-sabine-van-gompel-versterkt-igh-als-directeur-pensioenen",
-      "published_at": "2026-01-29",
-      "source": "Verzekeringsnieuws - Algemeen",
-      "topics": [
-        "pensions",
-        "appointments",
-        "Wtp"
-      ],
-      "location_label": null,
-      "location_confidence": 0
-    },
-    {
-      "id": "n_13741b70e5",
-      "title": "Fors toegenomen tweewielerdiefstal zet verzekeringsmarkt onder druk",
-      "summary": "Politiecijfers tonen dat in 2025 98.491 scooters, motoren en fietsen zijn gestolen in Nederland, na jaren van daling. De stijging zet verzekeraars onder druk met hogere premies en strengere acceptatie-eisen, aldus analyse van Overstappen.nl.",
-      "url": "https://www.verzekeringsnieuws.nl/artikel/127725-fors-toegenomen-tweewielerdiefstal-zet-verzekeringsmarkt-onder-druk",
-      "published_at": "2026-01-29",
-      "source": "Verzekeringsnieuws - Algemeen",
-      "topics": [
-        "pricing",
-        "claims",
-        "theft"
-      ],
-      "location_label": null,
-      "location_confidence": 0
-    },
-    {
-      "id": "n_7fb222d67b",
-      "title": "ANVA lid van pan-Europese volmacht-alliantie die in 2026 met 300% wil groeien",
-      "summary": "ANVA sluit zich aan bij pan-Europese volmacht-alliantie FASE, die in 2026 het ledenaantal met 300% wil laten groeien; platformleverancier versterkt samenwerking binnen de verzekeringsketen.",
-      "url": "https://www.amweb.nl/156817/anva-lid-van-pan-europese-volmacht-alliantie-die-in-2026-met-300-wil-groeien",
-      "published_at": "2026-01-28",
-      "source": "AMweb - AMsignalen",
-      "topics": [
-        "distribution",
-        "insurtech",
-        "MGA",
-        "partnerships"
-      ],
-      "location_label": null,
-      "location_confidence": 0
-    },
-    {
-      "id": "n_785887ceed",
-      "title": "AFM: 'Nog niet alle pensioenadviseurs zijn begonnen met transitie'",
-      "summary": "AFM spoort pensioenadviseurs aan in 2026 tempo te maken met transitie naar het nieuwe pensioenstelsel. Uitstel brengt risico’s: te late omzetting kan contractbeëindiging, geen pensioenopbouw en fiscale claims veroorzaken. Pensioenregelingen moeten uiterlijk 1 januari 2028 zijn aangepast.",
-      "url": "https://infinance.nl/pensioenen/afm-nog-niet-alle-pensioenadviseurs-zijn-begonnen-met-transitie/",
-      "published_at": "2026-01-28",
-      "source": "InFinance",
-      "topics": [
-        "pensions",
-        "regulation",
-        "compliance",
-        "advice"
-      ],
-      "location_label": null,
-      "location_confidence": 0
-    },
-    {
-      "id": "n_4b194f4de1",
-      "title": "Regeringscommissaris transitie pensioenen: de transitie bij verzekerde regelingen begeeft zich richting het kritieke pad",
-      "summary": "De Regeringscommissaris transitie pensioenen publiceert de vierde voortgangsrapportage. Op basis van data van SZW, toezichthouders en sectorpublicaties en gesprekken (o.a. met Adfiz) waarschuwt hij dat de transitie bij verzekerde regelingen het kritieke pad nadert.",
-      "url": "https://adfiz.nlhttps://www.adfiz.nl/nieuws/adfiz-berichten/regeringscommissaris-transitie-pensioenen-de-transitie-bij-verzekerde-regelingen-begeeft-zich-richting-het-kritieke-pad/",
-      "published_at": "2026-01-28",
-      "source": "Adfiz",
-      "topics": [
-        "pensions",
-        "regulation",
-        "supervision",
-        "transition"
-      ],
-      "location_label": null,
-      "location_confidence": 0
-    },
-    {
-      "id": "n_b1b2bf1fe9",
-      "title": "AFM roept pensioenadviseurs op werkgevers te helpen in het beslissende transitiejaar 2026",
-      "summary": "AFM roept ruim 900 pensioenkantoren op werkgevers in 2026 te begeleiden bij omzetting van pensioenregelingen; 2026 geldt als beslissend transitiejaar. De toezichthouder signaleert dat niet alle pensioenadviseurs al zijn gestart.",
-      "url": "https://adfiz.nlhttps://www.adfiz.nl/nieuws/adfiz-berichten/afm-roept-pensioenadviseurs-op-werkgevers-te-helpen-in-het-beslissende-transitiejaar-2026/",
-      "published_at": "2026-01-27",
-      "source": "Adfiz",
-      "topics": [
-        "regulation",
-        "pensions",
-        "supervision"
-      ],
-      "location_label": null,
-      "location_confidence": 0
-    },
-    {
-      "id": "n_d1266923f9",
-      "title": "Automobilisten maken vaak fouten bij invullen schadevrije jaren",
-      "summary": "Volgens UnitedConsumers geven veel automobilisten bij het afsluiten van een autoverzekering onjuiste schadevrije jaren op, vaak door verwarring met treden op de bonus-malusladder. Dat leidt achteraf tot correcties en hogere premies door verzekeraars.",
-      "url": "https://www.verzekeringsnieuws.nl/artikel/127702-automobilisten-maken-vaak-fouten-bij-invullen-schadevrije-jaren",
-      "published_at": "2026-01-27",
-      "source": "Verzekeringsnieuws - Verzekering",
-      "topics": [
-        "motor",
-        "pricing",
-        "underwriting"
-      ],
-      "location_label": null,
-      "location_confidence": 0
-    },
-    {
-      "id": "n_5cd2cfbc4a",
-      "title": "Wachttijd verplichte AOV probleem voor zzp&#039;ers, markt biedt vangnet wel",
-      "summary": "CPB-stresstest toont dat verplichte AOV slechts beperkte groep zzp’ers helpt; wachttijd veroorzaakt financiële problemen. Experts, waaronder AOVdokter Annemieke Postema, stellen dat marktproducten een vangnet bieden en dat de CPB-cijfers niet het volledige beeld geven.",
-      "url": "https://www.amweb.nl/156752/wachttijd-verplichte-aov-probleem-voor-zzpers-markt-biedt-vangnet-wel",
-      "published_at": "2026-01-23",
-      "source": "AMweb - AMsignalen",
-      "topics": [
-        "regulation",
-        "disability",
-        "self-employed",
-        "income"
-      ],
-      "location_label": null,
-      "location_confidence": 0
-    },
-    {
-      "id": "n_0ffbfccca0",
-      "title": "Lemonade verzekert zelfrijdende auto’s VS, Tesla lobbyt ook in Nederland",
-      "summary": "Lemonade verzekert in de VS Tesla’s met FSD via ‘Lemonade Autonomous Car’, met circa 50% lagere premie per kilometer. Tesla lobbyt intussen in Nederland over zelfrijdend rijden.",
-      "url": "https://www.amweb.nl/156763/lemonade-verzekert-zelfrijdende-autos-vs-tesla-lobbyt-ook-in-nederland",
-      "published_at": "2026-01-23",
-      "source": "AMweb - AMsignalen",
-      "topics": [
-        "motor",
-        "autonomous",
-        "pricing",
-        "regulation"
-      ],
-      "location_label": null,
-      "location_confidence": 0
-    },
-    {
-      "id": "n_3531077292",
-      "title": "Independer: autoverzekering weer 30% duurder",
-      "summary": "Volgens Independer steeg de gemiddelde autoverzekeringspremie in vier jaar circa 30%, van bijna €1.040 (jan 2022) naar iets onder €1.340 nu; een toename van ongeveer €300. Onderzoek toont stijgende kosten voor automobilisten in Nederland.",
-      "url": "https://www.verzekeringsnieuws.nl/artikel/127685-independer-autoverzekering-weer-30-duurder",
-      "published_at": "2026-01-23",
-      "source": "Verzekeringsnieuws - Verzekering",
-      "topics": [
-        "pricing",
-        "motor",
-        "premiums",
-        "research"
-      ],
-      "location_label": null,
-      "location_confidence": 0
-    },
-    {
-      "id": "n_eb9b04ab29",
-      "title": "IG&#038;H neemt marktonderzoeksbureau over",
-      "summary": "IG&H neemt Baken Adviesgroep over, een marktonderzoeks- en adviesbureau voor de verzekeringssector.",
-      "url": "https://www.amweb.nl/156760/igh-neemt-marktonderzoeksbureau-over",
-      "published_at": "2026-01-23",
-      "source": "AMweb - AMsignalen",
-      "topics": [
-        "overname",
-        "marktonderzoek",
-        "verzekeringssector"
-      ],
-      "location_label": null,
-      "location_confidence": 0
-    },
-    {
-      "id": "n_7b350c357b",
-      "title": "Donatus benoemt Kees Hamster als nieuw RvC-lid",
-      "summary": "Donatus benoemt Kees Hamster per 1 februari tot lid van de raad van commissarissen, met de portefeuille Financiën en ICT. Hij treedt tevens toe tot het Audit- en Risicocomité.",
-      "url": "https://www.amweb.nl/156740/donatus-benoemt-kees-hamster-als-nieuw-rvc-lid",
-      "published_at": "2026-01-22",
-      "source": "AMweb - AMsignalen",
-      "topics": [
-        "governance",
-        "appointments",
-        "insurers",
-        "ict"
-      ],
-      "location_label": null,
-      "location_confidence": 0
-    },
-    {
-      "id": "n_b6e0dad69d",
-      "title": "Verzekeraars schieten tekort in communicatie over betalingsachterstanden",
-      "summary": "Stichting Toetsing Verzekeraars stelt dat verzekeraars onduidelijk communiceren over betalingsachterstanden. In 2024-2025 toetste STv 94 verzekeraars op onder meer het Protocol bij Betalingsachterstanden en vond tekortkomingen.",
-      "url": "https://www.amweb.nl/156729/verzekeraars-schieten-tekort-in-communicatie-over-betalingsachterstanden",
-      "published_at": "2026-01-21",
-      "source": "AMweb - AMsignalen",
-      "topics": [
-        "regulation",
-        "compliance",
-        "customer communication"
-      ],
-      "location_label": null,
-      "location_confidence": 0
-    },
-    {
-      "id": "n_bcba069093",
-      "title": "Söderberg fuseert pensioenbedrijven",
-      "summary": "Söderberg & Partners fuseert drie pensioenbedrijven: Conceptbenefits, APS Pensioenteam en 100%helder. Söderberg heeft al meerderheidsbelangen in de eerste twee; de samenwerking met 100%helder is nieuw.",
-      "url": "https://www.amweb.nl/156724/soderberg-fuseert-pensioenbedrijven",
-      "published_at": "2026-01-21",
-      "source": "AMweb - AMsignalen",
-      "topics": [
-        "pensions",
-        "M&A",
-        "brokers"
+        "personal injury",
+        "market conduct",
+        "compliance"
       ],
       "location_label": null,
       "location_confidence": 0
